@@ -4,9 +4,10 @@
 Team Name: Dev Dynasty
 
 Team Members:
-* Michael Sloan
-* Sam Medley 
+
 * Alex McDaniel
+* Sam Medley 
+* Michael Sloan
 * Liam Tolkkinen
 
 ## Synopsis
