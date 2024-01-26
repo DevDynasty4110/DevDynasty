@@ -18,13 +18,11 @@ Team Members:
 * Backend Development
   * Lead: Liam T
 * Frontend Development (2 Parts)
-  * Part 1:
-    Shell Design:
-      * Lead: (NAME)
-      * Make a menu
-  * Part 2:
-    * Board Design:
-      * Lead: (Name)
+  * Part 1 (Shell Design):
+      - Lead: (NAME)
+      - Make a menu
+  * Part 2 (Board Design):
+      - Lead: (Name)
       - Actual game experience
       - Design the board
       - Collect user input for backend processing
