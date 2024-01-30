@@ -9,4 +9,4 @@
  - Deciding if using agile or waterfall
  - chosing agile
  - Added a /src/ directory for holding source code
- - Added a GUI library to the resources directory
+ - Making directory called deliverables
