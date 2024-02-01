@@ -1,10 +1,11 @@
 # Meeting Minutes
-**Date:**
+**January 30, 2024**
 
 ## Agenda
-1. Item 1
-2. Item 2
-3. Item 3
+1. Started a journal.md file
+2. Deciding if using agile or waterfall
+3. Added a /src/ directory for holding source code
+4. Making directory called deliverables
 
 ## Notes
 1. Response to Item 1
