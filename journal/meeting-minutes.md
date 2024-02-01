@@ -19,7 +19,7 @@
     * Action Item 3
 
 ## Contributors
-* Group Member
+* Liam Tolkkinen
 * Group Member
 * Group Member
 
@@ -42,6 +42,6 @@
     * Action Item 3
 
 ## Contributors
-* Group Member
+* Liam Tolkkinen
 * Group Member
 * Group Member
