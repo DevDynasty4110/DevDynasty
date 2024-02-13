@@ -10,9 +10,6 @@
 ## Development Methodology
 * Agile development cycle
 
-## Assignment
-
-
 ## Milestones
 * Accurate Sudoku game logic
 * 
