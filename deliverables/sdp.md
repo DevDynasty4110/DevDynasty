@@ -11,8 +11,6 @@
 * Agile development cycle
 
 ## Milestones
-* Accurate Sudoku game logic
+* Requirements Document (February 20th, 2024)
+* Begin coding (February 22nd, 2024)
 * Minimum Viable Product (March 15th, 2024)
-* Requirements Document ()
-
-* Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
