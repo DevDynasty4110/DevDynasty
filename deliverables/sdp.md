@@ -12,6 +12,7 @@
 
 ## Milestones
 * Accurate Sudoku game logic
-* 
+* Minimum Viable Product (March 15th, 2024)
+* Requirements Document ()
 
 * Important Milestones that some combine the development methodology with constraints you cannot change (e.g., how long the course is).
