@@ -43,5 +43,5 @@
 
 ## Contributors
 * Liam Tolkkinen
-* Group Member
+* Samuel Medley
 * Group Member
