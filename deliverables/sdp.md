@@ -11,7 +11,7 @@
 * Agile development cycle
 
 ## Milestones
-* Requirements Document (February 22nd, 2024)
+* Requirements Document (February 22nd)
 * Design Specification (March 5th)
 * Begin coding (March 6th)
-* Minimum Viable Product (March 22nd, 2024)
+* Minimum Viable Product (March 22nd)
