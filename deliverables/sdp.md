@@ -14,4 +14,4 @@
 * Requirements Document (February 22nd, 2024)
 * Design Specification (March 5th)
 * Begin coding (March 6th)
-* Minimum Viable Product (March 15th, 2024)
+* Minimum Viable Product (March 22nd, 2024)
