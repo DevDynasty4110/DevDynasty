@@ -1,9 +1,9 @@
 # Requirements
-The Project will be completed in seperate parts by team members
-
-
-* Shall have basic inputs from the user 
-* Shall validate if its a legal move
-* Shall randomize starting board
-* Shall have a basic Gui with a score window, displays the board and the entries
-* Shall have a number input thats click and type on the board
+ 
+* Shall have GUI with game board, score display, and timer.
+* Game board shall consist of 3x3 9 tile boards.
+* Shall have clickable number boxes that allow user to type input.
+* Shall validate if user input is a legal move.
+* Shall randomize starting board at start of game.
+* Shall have easy, medium, and hard difficulty settings.
+* Shall allow one hint per game.
