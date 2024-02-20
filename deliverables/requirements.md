@@ -7,3 +7,4 @@
 * Shall randomize starting board at start of game.
 * Shall have easy, medium, and hard difficulty settings.
 * Shall allow one hint per game.
+* Shall have a submit button which verifies if the given solution is correct
