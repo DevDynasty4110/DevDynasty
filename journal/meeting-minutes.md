@@ -45,3 +45,25 @@
 * Liam Tolkkinen
 * Samuel Medley
 * Group Member
+
+**February 20, 2024**
+
+## Agenda
+1. Finish requirements.md
+2. Start on design specification
+
+
+## Notes
+1. Talked about adding an undo button and submit button to the board. Erasing feature as well
+2. 
+
+## Action Items
+* Group Member `n`
+    * Action Item 1
+    * Action Item 2
+    * Action Item 3
+
+## Contributors
+* Liam Tolkkinen
+* Group Member
+* Group Member
