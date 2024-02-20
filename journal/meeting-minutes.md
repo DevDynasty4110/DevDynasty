@@ -20,7 +20,7 @@
 
 ## Contributors
 * Liam Tolkkinen
-* Group Member
+* Michael Sloan
 * Group Member
 
 
@@ -44,7 +44,7 @@
 ## Contributors
 * Liam Tolkkinen
 * Samuel Medley
-* Group Member
+* Michael Sloan
 
 **February 20, 2024**
 
@@ -55,7 +55,6 @@
 
 ## Notes
 1. Talked about adding an undo button and submit button to the board. Erasing feature as well
-2. 
 
 ## Action Items
 * Group Member `n`
@@ -66,4 +65,4 @@
 ## Contributors
 * Liam Tolkkinen
 * Samuel Medley
-* Group Member
+* Michael Sloan
