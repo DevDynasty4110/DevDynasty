@@ -8,3 +8,4 @@
 * Shall have easy, medium, and hard difficulty settings.
 * Shall allow one hint per game.
 * Shall have a submit button which verifies if the given solution is correct
+* Shall highlight incorrect boxes if there are duplicate numbers in a row/column/3x3 box (Game logic)
