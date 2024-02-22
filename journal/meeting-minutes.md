@@ -87,5 +87,5 @@
 
 ## Contributors
 * Liam Tolkkinen
-* group member
+* Samuel Medley
 * group member
