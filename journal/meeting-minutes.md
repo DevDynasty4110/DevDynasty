@@ -66,3 +66,26 @@
 * Liam Tolkkinen
 * Samuel Medley
 * Michael Sloan
+
+**February 22, 2024**
+
+## Agenda
+1. work on requirements (Due at EOD)
+
+
+## Notes
+1. Discussed scoring system
+2. debated how to determine score based on time and hints used
+3. exponential decay approach to determine the score based on time
+4. hints capped at 3 hints per game (linear point deduction per hint)
+
+## Action Items
+* Group Member `n`
+    * Action Item 1
+    * Action Item 2
+    * Action Item 3
+
+## Contributors
+* Liam Tolkkinen
+* group member
+* group member
