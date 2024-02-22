@@ -8,11 +8,11 @@
 3. Shall randomize starting board at beginning of game.
 4. Shall have easy, medium, and hard difficulty settings.
     1. Easy
-        1. 40% of the board will be complete.
+        1. 40% (33 tiles) of the board will be complete.
     2. Medium
-        1. 30% of the board will be complete.
+        1. 30% (25 tiles) of the board will be complete.
     3. Hard
-        1. 20% of the board will be complete.
+        1. 21% (17 tiles) of the board will be complete.
 5. Shall allow one hint per game.
     1. Hint consists of one tile being filled for the user.
 6. Shall have a submit button which verifies if the given solution is correct.
