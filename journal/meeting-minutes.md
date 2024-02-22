@@ -88,4 +88,4 @@
 ## Contributors
 * Liam Tolkkinen
 * Samuel Medley
-* group member
+* Michael Sloan
