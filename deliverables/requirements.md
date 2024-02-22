@@ -8,9 +8,9 @@
 3. Shall randomize starting board at beginning of game.
 4. Shall have easy, medium, and hard difficulty settings.
     1. Easy
-        1. 40% of the board will be complete.
+        1.  of the board will be complete.
     2. Medium
-        1. 30% of the board will be complete.
+        1. 25 of the board will be complete.
     3. Hard
         1. 17 tiles of the board will be complete.
 5. Shall allow three hints per game.
@@ -22,14 +22,14 @@
     3. If incorrect:
         1. Incorrect boxes shall be highlighted indicating wrong moves.
         2. User shall have opportunity to try again with the incorrect entries removed or end game.
-7. Various factors shall contribute to scoring.
+7. The game shall keep a score.
     1. A correct game board after 1 attempt will reward 1000 points.
     2. Difficulty scoring:
         1. Easy mode shall be 0.5x the total score. 
         2. Medium shall be 1x the total score.
         3. Hard shall be 1.5x the toal score.
-    3. 
- 8. The game Shall keep a score
+    3. Timer shall have score checkpoints:
+        1. Any board solved in under 2 minutes
     1. Timer will have checkpoints, the lower the time the higher the score
     2. After 5 minutes, every minute that passes the player will lose an exponential amount of points
     3. If the player uses a hint they will lose 100 points 
