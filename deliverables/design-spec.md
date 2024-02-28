@@ -15,6 +15,8 @@
         1. Counter increments after each square is revealed, revelation process stops once counter hits 25.
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
-5. Backend
-6. GUI
-7. Backend
+5. The game logic will be able to verify if the proposed solution to the sudoko puzzle is valid after the submit button is clicked. If invalid the the incorrect boxes will be highlighted. The game will then provide two options to the user, allowing them to continue with incorrect boxes cleared or end the game. If the proposed solution is correct, a GUI will display their game summary(score). 
+Scoring logic: 
+6. Backend
+7. GUI
+8. Backend
