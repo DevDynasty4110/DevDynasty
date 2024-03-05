@@ -19,13 +19,13 @@
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
 5.   
-6. The game logic will be able to verify if the proposed solution to the sudoko puzzle is valid after the submit button is clicked. If invalid the incorrect boxes will be highlighted. The game will then provide two options to the user, allowing them to continue with incorrect boxes cleared or end the game. If the proposed solution is correct, a GUI will display their game summary(score).
-    1. 
-    2. 
-        1. 
-    3. 
-        1. 
-        2. 
+6. Green submit button will reside at the bottom of the window.
+    1. Program will check entire board to see if it has an empty cell and if it does button won't be able to be clicked.
+    2. All entries are filled program checked for valid board:
+        1. Window with time to complete, difficulty, and total score will be displayed. 
+    3. Some entries are empty or board is not valid for sudoku:
+        1. GUI will highlight in red all of the incorrect/empty cells.
+        2. Game will continue and the incorrect/empty cells will be cleared ready for user input.
 7. Backend
     1. 
     2. 
