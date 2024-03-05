@@ -1,7 +1,7 @@
 # Software Development Plan
 
 ## Administrivia
-* Meet in class twice a week (Group discord call as needed)
+* Meet in class once a week (Group discord call as needed)
 * Meetings will mainly consist of:
   * What we have done since last meeting
   * Any unexcpected problems/setbacks
