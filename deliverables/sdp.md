@@ -12,6 +12,6 @@
 
 ## Milestones
 * Requirements Document (February 22nd)
-* Design Specification (March 5th)
+* Design Specification (March 7th)
 * Begin coding (March 6th)
 * Minimum Viable Product (March 29th)
