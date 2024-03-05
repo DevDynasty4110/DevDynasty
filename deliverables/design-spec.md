@@ -18,7 +18,8 @@
         1. Counter increments after each square is revealed, revelation process stops once counter hits 25.
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
-5.   
+5. Hint counter will decrement after user uses a hint. Once the user is out of hints, the button will not register a click.
+    1. Random number generator will choose what tile gets filled on the board. 
 6. Green submit button will reside at the bottom of the window.
     1. Program will check entire board to see if it has an empty cell and if it does button won't be able to be clicked.
     2. All entries are filled program checked for valid board:
