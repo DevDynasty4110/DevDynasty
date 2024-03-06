@@ -40,7 +40,7 @@
             α: the decay rate  
             t: the time in seconds (Variable)  
             T: the time offset  
-            The best found values are as follows:
+            The best found values are as follows:  
             $α = \frac{1}{60}$  
             t = t (variable)  
             T = -300  
