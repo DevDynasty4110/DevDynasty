@@ -47,7 +47,17 @@
             this produces:  
             $F(t) = 1000e^{-\frac{1}{60}(t -300)}$
 
-    4. 
-    5. 
-        1. 
-        2. 
+    4. The base score will have 300 points subracted for every hint that is used
+    5. points subtracted for mistakes at submission
+        1. when the board is submitted, every duplicate found will subtract 20 points from the base score
+    6. final score
+        1. the final score will be calculated by taking the sum of the base score and the time bonus.
+        the final score will look like this: 
+        $$ 
+        Score = base_score + F(t)
+        \left\{
+            \begin{array}{1}
+            t \leq 300 \\
+            \end{array}
+            \right
+        $$
