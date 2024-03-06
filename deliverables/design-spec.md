@@ -54,5 +54,5 @@
         1. the final score will be calculated by taking the sum of the base score and the time bonus.
         the final score will look like this: 
         
-        $Score = base-score + F(t)$  
+        $Score =$ base_score $ + F(t)$  
         where $t \geq 300$
