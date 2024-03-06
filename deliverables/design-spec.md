@@ -37,6 +37,16 @@
         1. if a board is solved in under 5 minutes, the game will add 1000 points to the total score
         2. Once 5 minutes has passed, this additional score will be determined by an exponential decay function
             $F(t) = 1000e^{-α(t + T)}$
+            α: the decay rate
+            t: the time in seconds (Variable)
+            T: the time offset
+            The best found values are as follows:
+            $α = \frac{1}{60}$
+            t = t (variable)
+            T = -300
+            this produces:
+            $F(t) = 1000e^{-\frac{1}{60}(t -300)}$
+
     4. 
     5. 
         1. 
