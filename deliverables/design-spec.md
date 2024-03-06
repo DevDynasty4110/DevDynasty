@@ -53,11 +53,10 @@
     6. final score
         1. the final score will be calculated by taking the sum of the base score and the time bonus.
         the final score will look like this: 
-        $$ 
-        Score = base_score + F(t)
+         
+        $Score = base_score + F(t)
         \left\{
             \begin{array}{1}
             t \leq 300 \\
             \end{array}
-            \right
-        $$
+            \right$
