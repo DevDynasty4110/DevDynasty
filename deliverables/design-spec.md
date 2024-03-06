@@ -36,7 +36,7 @@
     3. A timer will continuously run contribute to the score
         1. if a board is solved in under 5 minutes, the game will add 1000 points to the total score
         2. Once 5 minutes has passed, this additional score will be determined by an exponential decay function
-            $F(t) = 1000e^-α(t + T)$
+            $F(t) = 1000e^{-α(t + T)}$
     4. 
     5. 
         1. 
