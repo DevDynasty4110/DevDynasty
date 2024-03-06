@@ -28,14 +28,15 @@
         1. GUI will highlight in red all of the incorrect/empty cells.
         2. Game will continue and the incorrect/empty cells will be cleared ready for user input.
 7. Backend
-    1. 
-    2. 
-        1. 
-        2. 
-        3. 
-    3. 
-        1. 
-        2. 
+    1. When a game attempt is submitted, the game will determine if it is the first attempt of submission. if it is the first attempt and it is correct, it will award 1000 points to the user
+    2. To implement the difficulty, the user will be prompted with 3 options. Easy, Medium, or Hard. This will be collected using a graphical interface handled by the front end team. However, the GUI will send the choice over to the game logic.
+        1. Easy: the easy game mode will scale the total score by 0.5
+        2. Medium: The medium game mode will scale the total score by 1.0 (no change)
+        3. Hard: the hard game mode will scale the total score by 1.5
+    3. A timer will continuously run contribute to the score
+        1. if a board is solved in under 5 minutes, the game will add 1000 points to the total score
+        2. Once 5 minutes has passed, this additional score will be determined by an exponential decay function
+            $F(t) = 1000e^-α(t + T)$
     4. 
     5. 
         1. 
