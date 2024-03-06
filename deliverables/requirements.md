@@ -57,5 +57,6 @@
     4. The user shall lose 300 points for each hint used.
         -**Eval: test to see if 300 points are deducted for every hint used**
     5. Points shall be rewarded/deducted at the submission of each board.
-        1. For each correct tile the user shall receive 20 points.
         2. For each incorrect tile the user shall lose 20 points.
+    6. Final score
+        1. the final score will be calculated at the end of the game
