@@ -41,10 +41,10 @@
             t: the time in seconds (Variable)
             T: the time offset
             The best found values are as follows:
-            $α = \frac{1}{60}$
-            t = t (variable)\n
-            T = -300\n
-            this produces:
+            $α = \frac{1}{60}$  
+            t = t (variable)  
+            T = -300  
+            this produces:  
             $F(t) = 1000e^{-\frac{1}{60}(t -300)}$
 
     4. 
