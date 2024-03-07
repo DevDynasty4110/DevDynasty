@@ -45,6 +45,7 @@
 * Liam Tolkkinen
 * Samuel Medley
 * Michael Sloan
+* Alex McDaniel
 
 **February 20, 2024**
 
@@ -66,6 +67,7 @@
 * Liam Tolkkinen
 * Samuel Medley
 * Michael Sloan
+* Alex McDaniel
 
 **February 22, 2024**
 
@@ -89,3 +91,4 @@
 * Liam Tolkkinen
 * Samuel Medley
 * Michael Sloan
+* Alex McDaniel
