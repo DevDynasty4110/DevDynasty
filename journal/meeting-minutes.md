@@ -22,6 +22,7 @@
 * Liam Tolkkinen
 * Michael Sloan
 * Group Member
+* Alex McDaniel
 
 
 **February 1, 2024**
