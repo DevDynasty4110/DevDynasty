@@ -2,3 +2,5 @@
 *.exe
 *.out
 .idea/
+.vscode/
+sudoku.dSYM/
