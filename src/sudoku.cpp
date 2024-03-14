@@ -1,4 +1,5 @@
 #include "iostream"
+#include "../include/sudoku.h"
 
 int main()
 {
