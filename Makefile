@@ -27,3 +27,8 @@ ${EXECUTABLE}: $(OBJ_FILES)
 # command run to compile our .cpp files to .o binaries
 $(OBJ_PTH)/%.o: $(SRC_PTH)/%.cpp $(HEADER_FILES) 
 	@${CXX} $(CPPFLAGS) -c -o $@ $< 
+
+clean:
+	rm -rf $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
+cleanWin:
+	del /Q /F $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
