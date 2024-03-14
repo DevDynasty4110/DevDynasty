@@ -1,11 +1,10 @@
-
 #include "iostream"
 
-using namespace std;
+//NO USING NAMESPACES!!!!
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    std::cout << "Hello World!" << std::endl;
 
     return 0;
 }
