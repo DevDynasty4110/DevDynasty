@@ -30,7 +30,7 @@ CPPFLAGS = -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
 
 # command run to build the executable
 ${EXECUTABLE}: $(OBJ_FILES) 
-	${CXX} -o $@ $(OBJ_FILES) $(LDFLAGS) $(WX_LIBS) $(WX_FLAGS) $^ 
+	${CXX} -o $@ $(OBJ_FILES) $(LDFLAGS) $(WX_LIBS) $(WX_FLAGS) 
 # command run to compile our .cpp files to .o binaries
 $(OBJ_PTH)/%.o: $(SRC_PTH)/%.cpp 
 	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $< 
