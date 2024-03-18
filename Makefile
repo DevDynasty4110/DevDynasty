@@ -21,15 +21,15 @@ HEADER_FILES := $(wildcard $(INCLUDE_PTH)/*.h)
 OBJ_FILES := $(patsubst $(SRC_PTH)/%.cpp,$(OBJ_PTH)/%.o,$(SRC_FILES)) 
 
 # flags for the compiler
-LDFLAGS := -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
-CPPFLAGS := -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
+LDFLAGS = -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
+CPPFLAGS = -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
 
 # command run to build the executable
 ${EXECUTABLE}: $(OBJ_FILES) 
 	${CXX} -o $@ $(OBJ_FILES) $(LDFLAGS) $(WX_LIBS) $(WX_FLAGS) $^ 
 # command run to compile our .cpp files to .o binaries
 $(OBJ_PTH)/%.o: $(SRC_PTH)/%.cpp 
-	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $(WX_LIBS) $< 
+	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $< 
 
 clean:
 	rm -rf $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
