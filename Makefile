@@ -6,8 +6,8 @@ CXX := g++
 
 #define paths
 WX_CONFIG = wx-config
-WX_FLAGS = $(wx-config --cxxflags)
-WX_LIBS = $(wx-config --libs)
+WX_FLAGS = $(shell wx-config --cxxflags)
+WX_LIBS = $(shell wx-config --libs)
 OBJ_PTH = obj
 SRC_PTH = src
 INCLUDE_PTH = include
@@ -18,7 +18,7 @@ SRC_FILES := $(wildcard $(SRC_PTH)/*.cpp)
 HEADER_FILES := $(wildcard $(INCLUDE_PTH)/*.h) 
 
 # variable for intermediate binary files (.o files)
-OBJ_FILES := $(patsubst $(SRC_PTH)%.cpp,$(OBJ_PTH)/%.o,$(SRC_FILES)) 
+OBJ_FILES := $(patsubst $(SRC_PTH)/%.cpp,$(OBJ_PTH)/%.o,$(SRC_FILES)) 
 
 # flags for the compiler
 LDFLAGS := -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
@@ -26,10 +26,10 @@ CPPFLAGS := -g -ggdb -static-libstdc++ -std=gnu++17 -Wall -Wextra -pedantic
 
 # command run to build the executable
 ${EXECUTABLE}: $(OBJ_FILES) 
-	${CXX} -o $@ $(OBJ_FILES) $(LDFLAGS) $(WX_LIBS) $^ 
+	${CXX} -o $@ $(OBJ_FILES) $(LDFLAGS) $(WX_LIBS) $(WX_FLAGS) $^ 
 # command run to compile our .cpp files to .o binaries
 $(OBJ_PTH)/%.o: $(SRC_PTH)/%.cpp 
-	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $< 
+	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $(WX_LIBS) $< 
 
 clean:
 	rm -rf $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
