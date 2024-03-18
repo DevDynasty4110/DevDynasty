@@ -11,9 +11,9 @@
 * Agile development cycle
 
 ## Milestones
-* Requirements Document (MVP) - February 22nd
-* Design Specification (MVP) - March 7th
-* Minimum Viable Product - March 29th
-* Requirements Document (Final) - April 4th
-* Design Specification (Final) - April 4th
-* Final Product - April 4th
+* Requirements Document (MVP) - <ins>**February 22nd**<ins>
+* Design Specification (MVP) - <ins>**March 7th**<ins>
+* Minimum Viable Product - <ins>**March 29th**<ins>
+* Requirements Document (Final) - <ins>**April 4th**<ins>
+* Design Specification (Final) - <ins>**April 4th**<ins>
+* Final Product - <ins>**April 4th**<ins>
