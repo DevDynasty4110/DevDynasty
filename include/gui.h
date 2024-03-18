@@ -4,8 +4,6 @@
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
-class Game
-{
-public:
-private:
-};
+
+// Name macros:
+#define __APP_NAME "Sudoku"
