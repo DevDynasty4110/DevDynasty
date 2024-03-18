@@ -12,6 +12,10 @@ OBJ_PTH = obj
 SRC_PTH = src
 INCLUDE_PTH = include
 
+#generate obj/ dir if missing:
+
+$(shell mkdir -p $(OBJ_PTH))
+
 
 # variables for our source and header files
 SRC_FILES := $(wildcard $(SRC_PTH)/*.cpp)
@@ -32,6 +36,6 @@ $(OBJ_PTH)/%.o: $(SRC_PTH)/%.cpp
 	${CXX} -c -o $@ $(WX_FLAGS) $(CPPFLAGS) $< 
 
 clean:
-	rm -rf $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
+	rm -rf $(OBJ_PTH) *.out *.exe $(EXECUTABLE)
 cleanWin:
 	del /Q /F $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
