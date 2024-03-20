@@ -1,25 +1,27 @@
 #include "../include/board.h"
 
-/* 
+/*
  *   difficulty passed in as int from user input
  *   0 = easy, 1 = medium, 2 = hard
  *   probably add nested for loop in initializer to fill out board (matrix)
- */ 
+ */
 Board::Board(int difficulty)
 {
     nTiles = 0;
-    if (difficulty == 0)
-     {
-        scoreScalar = 0.5;
-     }
-    else if (difficulty == 1)
-    {  
-        scoreScalar = 1.0;
+    if (difficulty == __EASY)
+    {
+        scoreScalar = __EASY_SCALAR;
+    }
+    else if (difficulty == __MEDIUM)
+    {
+        scoreScalar = __MEDIUM_SCALAR;
+    }
+    else if (difficulty == __HARD_SCALAR)
+    {
+        scoreScalar = __HARD_SCALAR;
     }
     else
     {
-        scoreScalar = 1.5;
+        exit(-1); // invalid difficulty
     }
 }
-
-
