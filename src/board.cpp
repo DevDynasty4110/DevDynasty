@@ -1,8 +1,5 @@
 #include "../include/board.h"
 
-
-Board::Board()
-
 /*
  *   difficulty passed in as int from user input
  *   0 = easy, 1 = medium, 2 = hard
@@ -29,3 +26,7 @@ Board::Board(int difficulty)
     }
 }
 
+Board::~Board()
+{
+
+}
