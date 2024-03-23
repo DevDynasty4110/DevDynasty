@@ -8,6 +8,7 @@
 class Board
 {
 private:
+    int *board[][];
     int nTiles;
     double scoreScalar;
 
