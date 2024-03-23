@@ -10,6 +10,13 @@ Board::Board(int difficulty)
     nTiles = 0;
     if (difficulty == __EASY)
     {
+        for (int i = 0; i < __ROW; ++i)
+        {
+            for (int j = 0; j < __COLUMN; ++j)
+            {
+                board[i][j] = i;
+            }
+        }
         scoreScalar = __EASY_SCALAR;
     }
     else if (difficulty == __MEDIUM)
@@ -28,5 +35,19 @@ Board::Board(int difficulty)
 
 Board::~Board()
 {
+}
 
+std::ostream& operator<<(std::ostream& os, const Board& b)
+{   
+    for (int i = 0; i < __ROW; ++i)
+        {
+            std::cout << "\n";
+            for (int j = 0; j < __COLUMN; ++j)
+            {
+                std::cout << b.board[i][j];
+                std::cout << "\t";
+            }
+            std::cout << "\n";
+        }
+    return os;
 }
