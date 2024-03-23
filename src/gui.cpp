@@ -1,77 +1,77 @@
-#include "../include/gui.h"
+// #include "../include/gui.h"
 
-// app declaration
-// structure citation: https://docs.wxwidgets.org/latest/overview_helloworld.html
-class SudokuApp : public wxApp
-{
-public:
-    bool OnInit() override;
-};
+// // app declaration
+// // structure citation: https://docs.wxwidgets.org/latest/overview_helloworld.html
+// class SudokuApp : public wxApp
+// {
+// public:
+//     bool OnInit() override;
+// };
 
-// This defines the equivalent of main() for the current platform.
-wxIMPLEMENT_APP(SudokuApp);
+// // This defines the equivalent of main() for the current platform.
+// wxIMPLEMENT_APP(SudokuApp);
 
-class SudokuFrame : public wxFrame
-{
-public:
-    SudokuFrame();
+// class SudokuFrame : public wxFrame
+// {
+// public:
+//     SudokuFrame();
 
-private:
-    void OnHello(wxCommandEvent &event);
-    void OnExit(wxCommandEvent &event);
-    void OnAbout(wxCommandEvent &event);
-};
+// private:
+//     void OnHello(wxCommandEvent &event);
+//     void OnExit(wxCommandEvent &event);
+//     void OnAbout(wxCommandEvent &event);
+// };
 
-enum
-{
-    ID_Hello = 1
-};
+// enum
+// {
+//     ID_Hello = 1
+// };
 
-bool SudokuApp::OnInit()
-{
-    SudokuFrame *frame = new SudokuFrame();
-    frame->Show();
-    return true;
-}
+// bool SudokuApp::OnInit()
+// {
+//     SudokuFrame *frame = new SudokuFrame();
+//     frame->Show();
+//     return true;
+// }
 
-SudokuFrame::SudokuFrame()
-    : wxFrame(nullptr, wxID_ANY, __APP_NAME)
-{
-    wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
-                     "Help string shown in status bar for this menu item");
-    menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
+// SudokuFrame::SudokuFrame()
+//     : wxFrame(nullptr, wxID_ANY, __APP_NAME)
+// {
+//     wxMenu *menuFile = new wxMenu;
+//     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
+//                      "Help string shown in status bar for this menu item");
+//     menuFile->AppendSeparator();
+//     menuFile->Append(wxID_EXIT);
 
-    wxMenu *menuHelp = new wxMenu;
-    menuHelp->Append(wxID_ABOUT);
+//     wxMenu *menuHelp = new wxMenu;
+//     menuHelp->Append(wxID_ABOUT);
 
-    wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&File");
-    menuBar->Append(menuHelp, "&Help");
+//     wxMenuBar *menuBar = new wxMenuBar;
+//     menuBar->Append(menuFile, "&File");
+//     menuBar->Append(menuHelp, "&Help");
 
-    SetMenuBar(menuBar);
+//     SetMenuBar(menuBar);
 
-    CreateStatusBar();
-    SetStatusText("Welcome to wxWidgets!");
+//     CreateStatusBar();
+//     SetStatusText("Welcome to wxWidgets!");
 
-    Bind(wxEVT_MENU, &SudokuFrame::OnHello, this, ID_Hello);
-    Bind(wxEVT_MENU, &SudokuFrame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &SudokuFrame::OnExit, this, wxID_EXIT);
-}
+//     Bind(wxEVT_MENU, &SudokuFrame::OnHello, this, ID_Hello);
+//     Bind(wxEVT_MENU, &SudokuFrame::OnAbout, this, wxID_ABOUT);
+//     Bind(wxEVT_MENU, &SudokuFrame::OnExit, this, wxID_EXIT);
+// }
 
-void SudokuFrame::OnExit(wxCommandEvent &event)
-{
-    Close(true);
-}
+// void SudokuFrame::OnExit(wxCommandEvent &event)
+// {
+//     Close(true);
+// }
 
-void SudokuFrame::OnAbout(wxCommandEvent &event)
-{
-    wxMessageBox("This is a wxWidgets Hello World example",
-                 "About Hello World", wxOK | wxICON_INFORMATION);
-}
+// void SudokuFrame::OnAbout(wxCommandEvent &event)
+// {
+//     wxMessageBox("This is a wxWidgets Hello World example",
+//                  "About Hello World", wxOK | wxICON_INFORMATION);
+// }
 
-void SudokuFrame::OnHello(wxCommandEvent &event)
-{
-    wxLogMessage("Hello world from wxWidgets!");
-}
+// void SudokuFrame::OnHello(wxCommandEvent &event)
+// {
+//     wxLogMessage("Hello world from wxWidgets!");
+// }
