@@ -11,14 +11,29 @@
 class Board
 {
 private:
+    // represents the board with row and column constants
     int board[__ROW][__COLUMN];
     int nTiles;
+    // multiplier added to scoring
     double scoreScalar;
 
 public:
-    Board(); // default constructor
+    /// @brief default constructor
+    Board();
+    
+    /// @brief customized constructor
+    /// @param difficulty determine how many tiles are filled in to start game
     Board(int difficulty);
-    ~Board(); // default destructor
+    
+    /// @brief default destructor 
+    ~Board(); 
+    
+    /// @brief print horizontal border to separate sudoku board
     void printHorizontal();
+    
+    /// @brief Overloading << operator to allow us to print the sudoku board
+    /// with our formatting to the console
+    /// @param os reference to ostream object to output the board to
+    /// @param b Board object that is being printed
     friend std::ostream& operator<<(std::ostream &os, const Board& b);
 };
