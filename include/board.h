@@ -19,5 +19,6 @@ public:
     Board(); // default constructor
     Board(int difficulty);
     ~Board(); // default destructor
+    void printHorizontal();
     friend std::ostream& operator<<(std::ostream &os, const Board& b);
 };
