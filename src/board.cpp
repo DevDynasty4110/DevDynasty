@@ -4,6 +4,8 @@
  *   difficulty passed in as int from user input
  *   0 = easy, 1 = medium, 2 = hard
  *   probably add nested for loop in initializer to fill out board (matrix)
+ *   TODO:: add logic for random values between 1-9 to fill in board and verify
+ *   that the board is actually solvable
  */
 Board::Board(int difficulty)
 {
@@ -69,7 +71,7 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
         {   // print actual value
             std::cout << b.board[i][j];
             std::cout << "\t";
-            
+
             // print vertical border in these two cases
             if (j == 2 || j == 5)
             {
