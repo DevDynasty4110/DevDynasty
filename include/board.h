@@ -22,6 +22,13 @@ public:
     
     /// @brief default destructor 
     ~Board(); 
+
+    void autoSolve();
+
+    /// @brief 
+    /// @param difficulty 
+    /// @return 
+    void generateBoard(int difficulty);
     
     /// @brief print horizontal border to separate sudoku board
     void printHorizontal();
