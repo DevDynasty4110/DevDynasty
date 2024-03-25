@@ -13,11 +13,16 @@
 // #define GUI
 //---------------
 
+// for easy and quick access
+double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
 class Game
 {
 public:
     int sudoku(); // replacement for main()
     void startGame();
+    // returns a completed board from the current unsolvded board
+    Board autoSolve();
+    Board generateBoard(int difficulty); // please use difficulty macros here!
     int getDifficulty();
     void setDifficulty(int dif)
     {
