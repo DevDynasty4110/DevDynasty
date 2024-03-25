@@ -16,6 +16,11 @@ void Game::setDifficulty(int d)
     difficulty = d;
 }
 
+void Game::setScoreScalar(double s)
+{
+    scoreScalar = s;
+}
+
 #ifdef TERMINAL
 int main()
 {

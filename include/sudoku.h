@@ -20,9 +20,15 @@ public:
     void startGame();
     int getDifficulty();
     void setDifficulty(int difficulty);
+    double getScoreScalar()
+    {
+        return scoreScalar;
+    }
+    void setScoreScalar(double s);
 
 private:
     int difficulty;
     Board gameBoard;
     double scoreScalar;
+    int nTiles;
 };
