@@ -3,6 +3,11 @@
 #include "../include/board.h"
 #include <limits>
 
+#define __EASY_SCALAR 0.5
+#define __MEDIUM_SCALAR 1.0
+#define __HARD_SCALAR 1.5
+
+
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
 // if you comment one out, uncomment the other
@@ -14,7 +19,10 @@
 //---------------
 
 // for easy and quick access
-double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
+#ifndef SCALAR_ARRAY
+#define SCALAR_ARRAY
+extern double scalarArr[]; 
+#endif
 class Game
 {
 public:

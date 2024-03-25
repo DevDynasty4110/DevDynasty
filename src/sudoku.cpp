@@ -1,5 +1,7 @@
 #include "../include/sudoku.h"
 
+double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
+
 void Game::startGame()
 {
     // TODO
@@ -27,7 +29,7 @@ int main()
     int difficulty;
     while (true)
     {
-        std::cout << "Please enter a difficulty:\n0: Easy\n1: Medium\n3: Hard" << std::endl;
+        std::cout << "Please enter a difficulty:\n0: Easy\n1: Medium\n2: Hard" << std::endl;
         if (!(std::cin >> difficulty))
         {
             std::cout << "Invalid input. Please enter an integer." << std::endl;
