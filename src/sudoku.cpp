@@ -8,7 +8,7 @@ void Game::startGame()
 
 int main()
 {
-    Board board(0);
+    Board board(__EASY);
     std::cout << board << std::endl;
     return 0;
 }
