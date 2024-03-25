@@ -10,9 +10,12 @@
 class Board
 {
 private:
+
+public:
+
     // represents the board with row and column constants
     uint board[__ROWS][__COLUMNS];
-public:
+
     /// @brief default constructor
     Board();
     
