@@ -1,5 +1,4 @@
 #include "../include/sudoku.h"
-#include <iostream>
 #include "../include/board.h"
 
 void Game::startGame()
