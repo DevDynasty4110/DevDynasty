@@ -12,9 +12,9 @@ Board::Board(int difficulty)
     nTiles = 0;
     if (difficulty == __EASY)
     {
-        for (int i = 0; i < __ROW; ++i)
+        for (int i = 0; i < __ROWS; ++i)
         {
-            for (int j = 0; j < __COLUMN; ++j)
+            for (int j = 0; j < __COLUMNS; ++j)
             {
                 board[i][j] = i;
             }
@@ -41,7 +41,7 @@ Board::~Board()
 
 void printHorizontal()
 { // iterate through each column + 2 because of | borders for the sudoku board
-    for (int i = 0; i < __COLUMN + 2; ++i)
+    for (int i = 0; i < __COLUMNS + 2; ++i)
     { // add vertical border instead in 2 cases
         if (i == 3 || i == 7)
         {
@@ -58,7 +58,7 @@ void printHorizontal()
 
 std::ostream &operator<<(std::ostream &os, const Board &b)
 { // iterate through entire matrix to print to console
-    for (int i = 0; i < __ROW; ++i)
+    for (int i = 0; i < __ROWS; ++i)
     {
         std::cout << "\n";
         // print the horizontal border in these two cases
@@ -68,7 +68,7 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
             printHorizontal();
             std::cout << "\n";
         }
-        for (int j = 0; j < __COLUMN; ++j)
+        for (int j = 0; j < __COLUMNS; ++j)
         { // print actual value
             std::cout << b.board[i][j];
             std::cout << "\t";
