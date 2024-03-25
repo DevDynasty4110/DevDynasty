@@ -16,9 +16,6 @@ private:
     // represents the board with row and column constants
     uint board[__ROWS][__COLUMNS];
     int nTiles;
-    // multiplier added to scoring
-    double scoreScalar;
-
 public:
     /// @brief default constructor
     Board();

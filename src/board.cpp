@@ -7,31 +7,12 @@
  *   TODO:: add logic for random values between 1-9 to fill in board and verify
  *   that the board is actually solvable
  */
-Board::Board(int difficulty)
+Board::Board()
 {
-    nTiles = 0;
-    if (difficulty == __EASY)
+    for (int i = 0; i < 9; i++)
     {
-        for (int i = 0; i < __ROWS; ++i)
-        {
-            for (int j = 0; j < __COLUMNS; ++j)
-            {
-                board[i][j] = i;
-            }
-        }
-        scoreScalar = __EASY_SCALAR;
-    }
-    else if (difficulty == __MEDIUM)
-    {
-        scoreScalar = __MEDIUM_SCALAR;
-    }
-    else if (difficulty == __HARD_SCALAR)
-    {
-        scoreScalar = __HARD_SCALAR;
-    }
-    else
-    {
-        exit(-1); // invalid difficulty
+        for (int j = 0; j < 9; j++)
+            board[i][j] = 0;
     }
 }
 
