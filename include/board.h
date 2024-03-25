@@ -15,7 +15,6 @@ class Board
 private:
     // represents the board with row and column constants
     uint board[__ROWS][__COLUMNS];
-    int nTiles;
 public:
     /// @brief default constructor
     Board();
