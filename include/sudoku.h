@@ -19,12 +19,23 @@ public:
     int sudoku(); // replacement for main()
     void startGame();
     int getDifficulty();
-    void setDifficulty(int difficulty);
+    void setDifficulty(int dif)
+    {
+        difficulty = dif;
+    }
     double getScoreScalar()
     {
         return scoreScalar;
     }
     void setScoreScalar(double s);
+    int getNTiles()
+    {
+        return nTiles;
+    }
+    void setNTiles(int nT)
+    {
+        nTiles = nT;
+    }
 
 private:
     int difficulty;

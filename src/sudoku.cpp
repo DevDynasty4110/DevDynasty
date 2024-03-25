@@ -11,10 +11,6 @@ int Game::sudoku()
 {
     return 0; // return 0 if exits properly
 }
-void Game::setDifficulty(int d)
-{
-    difficulty = d;
-}
 
 void Game::setScoreScalar(double s)
 {
