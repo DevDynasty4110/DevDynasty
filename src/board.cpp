@@ -40,14 +40,15 @@ Board::~Board()
 }
 
 void printHorizontal()
-{   // iterate through each column + 2 because of | borders for the sudoku board
+{ // iterate through each column + 2 because of | borders for the sudoku board
     for (int i = 0; i < __COLUMN + 2; ++i)
-    {   // add vertical border instead in 2 cases
+    { // add vertical border instead in 2 cases
         if (i == 3 || i == 7)
         {
             std::cout << "|";
         }
-        else { // else print horizontal border
+        else
+        { // else print horizontal border
             std::cout << "-";
         }
         std::cout << "\t";
@@ -56,7 +57,7 @@ void printHorizontal()
 }
 
 std::ostream &operator<<(std::ostream &os, const Board &b)
-{   // iterate through entire matrix to print to console
+{ // iterate through entire matrix to print to console
     for (int i = 0; i < __ROW; ++i)
     {
         std::cout << "\n";
@@ -68,7 +69,7 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
             std::cout << "\n";
         }
         for (int j = 0; j < __COLUMN; ++j)
-        {   // print actual value
+        { // print actual value
             std::cout << b.board[i][j];
             std::cout << "\t";
 
