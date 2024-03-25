@@ -6,11 +6,44 @@ void Game::startGame()
 }
 // main() cant be defined if using a GUI
 // Added an ifdef to determine which type of app it is
+
+int Game::sudoku()
+{
+    return 0; // return 0 if exits properly
+}
+void Game::setDifficulty(int d)
+{
+    difficulty = d;
+}
+
 #ifdef TERMINAL
 int main()
 {
-    Board board(__EASY);
+    Game game;
+    int difficulty;
+    while (true)
+    {
+        std::cout << "Please enter a difficulty:\n0: Easy\n1: Medium\n3: Hard" << std::endl;
+        if (!(std::cin >> difficulty))
+        {
+            std::cout << "Invalid input. Please enter an integer." << std::endl;
+            std::cin.clear();                                                   // Clear the fail bit
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        }
+        else if (difficulty >= 0 && difficulty <= 3)
+        {
+            break;
+        }
+        else
+        {
+            std::cout << "INVALID DIFFICULTY" << std::endl;
+        }
+    }
+    // exit status is just the exit code that is returned
+    // just like for main()
+    int exitStatus = game.sudoku(); // function call to main() style function
+    Board board;
     std::cout << board << std::endl;
-    return 0;
+    return 0 | exitStatus; // bitwise OR to get true exit status
 }
 #endif
