@@ -9,6 +9,9 @@ void Game::startGame()
 
 int Game::sudoku()
 {
+    Board board;
+    std::cout << board << std::endl;
+
     return 0; // return 0 if exits properly
 }
 
@@ -31,8 +34,10 @@ int main()
             std::cin.clear();                                                   // Clear the fail bit
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
         }
-        else if (difficulty >= 0 && difficulty <= 3)
+        else if (difficulty >= __EASY && difficulty <= __HARD)
         {
+            game.setDifficulty(difficulty);
+            game.setScoreScalar(scalarArr[difficulty]);
             break;
         }
         else
@@ -43,8 +48,6 @@ int main()
     // exit status is just the exit code that is returned
     // just like for main()
     int exitStatus = game.sudoku(); // function call to main() style function
-    Board board;
-    std::cout << board << std::endl;
-    return 0 | exitStatus; // bitwise OR to get true exit status
+    return 0 | exitStatus;          // bitwise OR to get true exit status
 }
 #endif
