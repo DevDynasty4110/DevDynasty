@@ -7,7 +7,6 @@
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
 
-
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
 // if you comment one out, uncomment the other
@@ -21,8 +20,18 @@
 // for easy and quick access
 #ifndef SCALAR_ARRAY
 #define SCALAR_ARRAY
-extern double scalarArr[]; 
+extern double scalarArr[];
 #endif
+
+// holds the row/column and the value for a game move
+struct Move
+{
+    // how we will define moves
+    uint row;
+    uint column;
+    uint value;
+};
+
 class Game
 {
 public:
@@ -30,6 +39,7 @@ public:
     void startGame();
     // returns a completed board from the current unsolvded board
     Board autoSolve();
+    Move getHint();                      // returns a move
     Board generateBoard(int difficulty); // please use difficulty macros here!
     int getDifficulty();
     void setDifficulty(int dif)
