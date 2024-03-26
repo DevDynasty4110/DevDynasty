@@ -9,9 +9,12 @@ void Game::startGame()
 // main() cant be defined if using a GUI
 // Added an ifdef to determine which type of app it is
 
+// Pre::Difficulty MUST be asserted before calling this function
 int Game::sudoku()
 {
+    // initialize board:
     Board board;
+    board.generateBoard(difficulty);
     std::cout << board << std::endl;
 
     return 0; // return 0 if exits properly
