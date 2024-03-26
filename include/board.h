@@ -78,10 +78,10 @@ public:
     /// @return true if num isn't in row, false if it is
     bool unUsedInRow(int i, int num);
 
-    /// @brief 
-    /// @param j 
-    /// @param num 
-    /// @return 
+    /// @brief check if num is already in column
+    /// @param j column to check
+    /// @param num num to check
+    /// @return true if num isn't in column, false if it is
     bool unUsedInCol(int j, int num);
 
     /// @brief 
