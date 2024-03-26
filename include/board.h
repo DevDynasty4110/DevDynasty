@@ -47,11 +47,11 @@ public:
     /// @brief Iterate through rows and fill diagonal of board
     void fillDiagonal();
     
-    /// @brief 
-    /// @param rowStart 
-    /// @param colStart 
-    /// @param num 
-    /// @return 
+    /// @brief used to check if smaller matrix has specific number in it
+    /// @param rowStart row to start at for checking
+    /// @param colStart column to start at for checking
+    /// @param num specific number the function is checking for
+    /// @return true if 3x3 doesn't contain num, false if it contains num
     bool unUsedInBox(int rowStart, int colStart, int num);
 
     /// @brief 
