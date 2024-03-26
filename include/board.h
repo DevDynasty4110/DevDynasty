@@ -58,18 +58,6 @@ public:
     /// @param row specific row function starts at
     /// @param col specific column function starts at
     void fillBox(int row, int col);
-    
-    /// @brief 
-    /// @param row 
-    /// @param col 
-    /// @param value 
-    void setBox(int row, int col, int value);
-
-    /// @brief 
-    /// @param row 
-    /// @param col 
-    /// @return 
-    int getBox(int row, int col);
 
     /// @brief 
     /// @param num 
