@@ -41,21 +41,72 @@ public:
     /// Next recursively fill the rest of the matrices on the board.
     /// Lastly, once the matrix is fully populated, remove random number
     /// of elements for the user to solve.
-    /// @param difficulty 
-    /// @return
+    /// @param difficulty number of tiles for user to fill in
     void generateBoard(int difficulty);
+
+    /// @brief 
     void fillDiagonal();
+    
+    /// @brief 
+    /// @param rowStart 
+    /// @param colStart 
+    /// @param num 
+    /// @return 
     bool unUsedInBox(int rowStart, int colStart, int num);
+
+    /// @brief 
+    /// @param row 
+    /// @param col 
     void fillBox(int row, int col); // fills with random number
-    // getters and setters:
+    
+    /// @brief 
+    /// @param row 
+    /// @param col 
+    /// @param value 
     void setBox(int row, int col, int value);
+
+    /// @brief 
+    /// @param row 
+    /// @param col 
+    /// @return 
     int getBox(int row, int col);
+
+    /// @brief 
+    /// @param num 
+    /// @return 
     int randomGenerator(int num);
+    
+    /// @brief 
+    /// @param i 
+    /// @param j 
+    /// @param num 
+    /// @return 
     bool isSafe(int i, int j, int num);
+
+    /// @brief 
+    /// @param i 
+    /// @param num 
+    /// @return 
     bool unUsedInRow(int i, int num);
+
+    /// @brief 
+    /// @param j 
+    /// @param num 
+    /// @return 
     bool unUsedInCol(int j, int num);
+
+    /// @brief 
+    /// @param i 
+    /// @param j 
+    /// @return 
     bool fillRemaining(int i, int j);
+    
+    /// @brief 
+    /// @return 
     bool isComplete(); // checks to see if the board is properly solved
+    
+    /// @brief 
+    /// @param empty 
     void removeDigits(int empty);
 
     /// @brief print horizontal border to separate sudoku board
