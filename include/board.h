@@ -44,7 +44,7 @@ public:
     /// @param difficulty number of tiles for user to fill in
     void generateBoard(int difficulty);
 
-    /// @brief 
+    /// @brief Iterate through rows and fill diagonal of board
     void fillDiagonal();
     
     /// @brief 
