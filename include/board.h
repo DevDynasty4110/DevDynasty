@@ -72,10 +72,10 @@ public:
     /// and false if it has
     bool isSafe(int i, int j, int num);
 
-    /// @brief 
-    /// @param i 
-    /// @param num 
-    /// @return 
+    /// @brief check if num is already in row
+    /// @param i row to check
+    /// @param num num to check
+    /// @return true if num isn't in row, false if it is
     bool unUsedInRow(int i, int num);
 
     /// @brief 
