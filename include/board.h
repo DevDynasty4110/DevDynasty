@@ -36,12 +36,16 @@ public:
     void generateBoard(int difficulty);
     void fillDiagonal();
     bool unUsedInBox(int rowStart, int colStart, int num);
-    void fillBox(int row, int col);
+    void fillBox(int row, int col); // fills with random number
+    // getters and setters:
+    void setBox(int row, int col, int value);
+    int getBox(int row, int col);
     int randomGenerator(int num);
     bool isSafe(int i, int j, int num);
     bool unUsedInRow(int i, int num);
     bool unUsedInCol(int j, int num);
     bool fillRemaining(int i, int j);
+    bool isComplete(); // checks to see if the board is properly solved
     void removeDigits(int empty);
 
     /// @brief print horizontal border to separate sudoku board
