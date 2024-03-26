@@ -1,11 +1,13 @@
+/* used this link for reference in how to randomize sudoku board
+ * to allow for it to still be solvable
+ * https://www.geeksforgeeks.org/program-sudoku-generator/ 
+*/
+
 #include "../include/board.h"
 
 /*
  *   difficulty passed in as int from user input
  *   0 = easy, 1 = medium, 2 = hard
- *   probably add nested for loop in initializer to fill out board (matrix)
- *   TODO:: add logic for random values between 1-9 to fill in board and verify
- *   that the board is actually solvable
  */
 Board::Board()
 {
