@@ -43,14 +43,13 @@ void Board::fillDiagonal()
     // to keep place of diagonal in each row
     for (int i = 0; i < __ROWS; i = i + SRR)
     {
-
-        // for diagonal box, start coordinates->i==j
+        // fill smaller matrix
         fillBox(i, i);
     }
 }
-// Returns false if given 3 x 3 block contains num.
+
 bool Board::unUsedInBox(int rowStart, int colStart, int num)
-{
+{   // iterate through smaller matrix
     for (int i = 0; i < SRR; i++)
     {
         for (int j = 0; j < SRR; j++)
@@ -63,39 +62,38 @@ bool Board::unUsedInBox(int rowStart, int colStart, int num)
     }
     return true;
 }
-// Fill a 3 x 3 matrix.
+
 void Board::fillBox(int row, int col)
 {
     int num;
+    // iterate through smaller matrix
     for (int i = 0; i < SRR; i++)
     {
         for (int j = 0; j < SRR; j++)
         {
             do
-            {
+            { // find random number and see if it is in smaller matrix
                 num = randomGenerator(__ROWS);
             } while (!unUsedInBox(row, col, num));
             board[row + i][col + j] = num;
         }
     }
 }
-// Random generator
+
 int Board::randomGenerator(int num)
-{
+{   // needs seed I think, not random
     return (int)floor(
         (float)(rand() / double(RAND_MAX) * num + 1));
 }
 
-// Check if safe to put in cell
 bool Board::isSafe(int i, int j, int num)
 {
-    return (
+    return ( // verify the number hasn't been used in row, column, or box (smaller matrix)
         unUsedInRow(i, num) && unUsedInCol(j, num) && unUsedInBox(i - i % SRR, j - j % SRR, num));
 }
 
-// check in the row for existence
 bool Board::unUsedInRow(int i, int num)
-{
+{   // iterate through row
     for (int j = 0; j < __ROWS; j++)
     {
         if (board[i][j] == num)
@@ -106,9 +104,8 @@ bool Board::unUsedInRow(int i, int num)
     return true;
 }
 
-// check in the row for existence
 bool Board::unUsedInCol(int j, int num)
-{
+{   // iterate through column
     for (int i = 0; i < __ROWS; i++)
     {
         if (board[i][j] == num)
@@ -119,16 +116,13 @@ bool Board::unUsedInCol(int j, int num)
     return true;
 }
 
-// A recursive function to fill remaining
-// matrix
 bool Board::fillRemaining(int i, int j)
-{
-    // System.out.println(i+" "+j);
+{   // increment i and reset j because j has reached max
     if (j >= __ROWS && i < __ROWS - 1)
     {
         i = i + 1;
         j = 0;
-    }
+    } // iterated through all columns and rows, nothing lef return true
     if (i >= __ROWS && j >= __ROWS)
     {
         return true;
@@ -158,9 +152,10 @@ bool Board::fillRemaining(int i, int j)
                 return true;
             }
         }
-    }
+    } // iterate through each possible number (1-9)
     for (int num = 1; num <= __ROWS; num++)
-    {
+    {   // if num can be put in position, do it
+        // and move to the next position
         if (isSafe(i, j, num))
         {
             board[i][j] = num;
@@ -174,15 +169,13 @@ bool Board::fillRemaining(int i, int j)
     return false;
 }
 
-// Remove the empty no. of digits to
-// complete game
-void Board::removeDigits(int empty)
+void Board::removeDigits(int num)
 {
-    int count = empty;
+    int count = num;
+    // loop while there are still tiles to be removed
     while (count != 0)
     {
         int cellId = randomGenerator(__ROWS * __COLUMNS) - 1;
-        // System.out.println(cellId);
         // extract coordinates i and j
         int i = (cellId / __ROWS);
         int j = cellId % __ROWS;
@@ -190,7 +183,7 @@ void Board::removeDigits(int empty)
         {
             j = j - 1;
         }
-        // System.out.println(i+" "+j);
+        // if tile isn't empty, make it empty
         if (board[i][j] != 0)
         {
             count--;
