@@ -59,9 +59,9 @@ public:
     /// @param col specific column function starts at
     void fillBox(int row, int col);
 
-    /// @brief 
-    /// @param num 
-    /// @return 
+    /// @brief find random number between 1 and num
+    /// @param num max number to be generated
+    /// @return random number between 1 and num
     int randomGenerator(int num);
     
     /// @brief 
