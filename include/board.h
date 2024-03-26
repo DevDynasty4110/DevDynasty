@@ -84,19 +84,17 @@ public:
     /// @return true if num isn't in column, false if it is
     bool unUsedInCol(int j, int num);
 
-    /// @brief 
-    /// @param i 
-    /// @param j 
-    /// @return 
+    /// @brief recursive function to fill remaining matrix outside of
+    /// diagonal
+    /// @param i row to work on
+    /// @param j column to work on
+    /// @return true if it can be filled, false if it is complete
     bool fillRemaining(int i, int j);
     
-    /// @brief 
-    /// @return 
-    bool isComplete(); // checks to see if the board is properly solved
-    
-    /// @brief 
-    /// @param empty 
-    void removeDigits(int empty);
+    /// @brief remove num number of digits
+    /// @param num number of digits to be removed from the board
+    /// for user to solve
+    void removeDigits(int num);
 
     /// @brief print horizontal border to separate sudoku board
     void printHorizontal();
