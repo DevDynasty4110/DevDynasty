@@ -64,11 +64,12 @@ public:
     /// @return random number between 1 and num
     int randomGenerator(int num);
     
-    /// @brief 
-    /// @param i 
-    /// @param j 
-    /// @param num 
-    /// @return 
+    /// @brief verify num is able to be placed in position
+    /// @param i row position
+    /// @param j column position
+    /// @param num number that is being placed
+    /// @return true if number hasn't been used in row, column or box,
+    /// and false if it has
     bool isSafe(int i, int j, int num);
 
     /// @brief 
