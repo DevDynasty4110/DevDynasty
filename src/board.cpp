@@ -1,17 +1,19 @@
 /* used this link for reference in how to randomize sudoku board
  * to allow for it to still be solvable
- * https://www.geeksforgeeks.org/program-sudoku-generator/ 
-*/
+ * https://www.geeksforgeeks.org/program-sudoku-generator/
+ */
 
 #include "../include/board.h"
-
+double floor(double x)
+{                            // return truncated value
+    return (double)((int)x); // truncate and then cast back to double
+}
 /*
  *   difficulty passed in as int from user input
  *   0 = easy, 1 = medium, 2 = hard
  */
 Board::Board()
 {
-    SRR = (int)sqrt(__ROWS);
     for (int i = 0; i < __ROWS; i++)
     {
         for (int j = 0; j < __COLUMNS; j++)
