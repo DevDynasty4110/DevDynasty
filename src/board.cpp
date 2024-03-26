@@ -38,9 +38,9 @@ void Board::generateBoard(int difficulty)
     removeDigits(difficulty);
 }
 
-// Fill the diagonal SRN number of SRN x SRN matrices
 void Board::fillDiagonal()
-{
+{   // iterate through each row, increment i by square root
+    // to keep place of diagonal in each row
     for (int i = 0; i < __ROWS; i = i + SRR)
     {
 
