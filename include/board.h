@@ -7,7 +7,12 @@
 #define __HARD 2
 #define __COLUMNS 9
 #define __ROWS 9
+#define __N_TILES_EASY 33
+#define __N_TILES_MEDIUM 25
+#define __N_TILES_HARD 17
+#define __TOTAL_TILES (__ROWS * __COLUMNS)
 #define __SRR 3 // square root of rows/columns (aka what smaller boxes will be)
+extern int nRemove[];
 
 class Board
 {

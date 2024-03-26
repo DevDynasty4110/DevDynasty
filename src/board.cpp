@@ -4,6 +4,7 @@
  */
 
 #include "../include/board.h"
+extern int nRemove[] = {__TOTAL_TILES - __N_TILES_EASY, __TOTAL_TILES - __N_TILES_MEDIUM, __TOTAL_TILES - __N_TILES_HARD};
 double floor(double x)
 {                            // return truncated value
     return (double)((int)x); // truncate and then cast back to double
