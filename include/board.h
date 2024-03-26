@@ -35,8 +35,13 @@ public:
 
     void autoSolve();
 
-    /// @brief
-    /// @param difficulty
+    /// @brief In the resource we used to generate a valid random
+    /// sudoku board, they attakked the problem in a specific way.
+    /// This attack was populate all of the diagonal 3x3 matrices first.
+    /// Next recursively fill the rest of the matrices on the board.
+    /// Lastly, once the matrix is fully populated, remove random number
+    /// of elements for the user to solve.
+    /// @param difficulty 
     /// @return
     void generateBoard(int difficulty);
     void fillDiagonal();
