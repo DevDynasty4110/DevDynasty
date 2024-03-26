@@ -54,10 +54,10 @@ public:
     /// @return true if 3x3 doesn't contain num, false if it contains num
     bool unUsedInBox(int rowStart, int colStart, int num);
 
-    /// @brief 
-    /// @param row 
-    /// @param col 
-    void fillBox(int row, int col); // fills with random number
+    /// @brief populate smaller matrix with numbers 1-9
+    /// @param row specific row function starts at
+    /// @param col specific column function starts at
+    void fillBox(int row, int col);
     
     /// @brief 
     /// @param row 
