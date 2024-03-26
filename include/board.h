@@ -10,12 +10,12 @@
 class Board
 {
 private:
-
-public:
-
     // represents the board with row and column constants
     uint board[__ROWS][__COLUMNS];
 
+    // square root of rows/columns (aka what smaller boxes will be)
+    int SRR;
+public:
     /// @brief default constructor
     Board();
     
@@ -32,7 +32,17 @@ public:
     /// @param difficulty 
     /// @return 
     void generateBoard(int difficulty);
-    
+    void fillDiagonal();
+    bool unUsedInBox(int rowStart, int colStart, int num);
+    void fillBox(int row, int col);
+    int randomGenerator(int num);
+    bool isSafe(int i, int j, int num);
+    bool unUsedInRow(int i, int num);
+    bool unUsedInCol(int j, int num);
+    bool fillRemaining(int i, int j);
+    void removeDigits(int empty);
+
+
     /// @brief print horizontal border to separate sudoku board
     void printHorizontal();
     
