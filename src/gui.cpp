@@ -2,13 +2,15 @@
 // app declaration
 // structure citation: https://docs.wxwidgets.org/latest/overview_helloworld.html
 #ifdef GUI // only compiles if "#define GUI" is uncommented
-class SudokuApp : public wxApp
+
+class Gui : public wxApp
 {
 public:
     bool OnInit() override;
+    
 };
 // This defines the equivalent of main() for the current platform.
-wxIMPLEMENT_APP(SudokuApp);
+wxIMPLEMENT_APP(Gui);
 class SudokuFrame : public wxFrame
 {
 public:
@@ -23,7 +25,7 @@ enum
 {
     ID_Hello = 1
 };
-bool SudokuApp::OnInit()
+bool Gui::OnInit()
 {
     SudokuFrame *frame = new SudokuFrame();
     frame->Show();
@@ -32,6 +34,10 @@ bool SudokuApp::OnInit()
 SudokuFrame::SudokuFrame()
     : wxFrame(nullptr, wxID_ANY, __APP_NAME)
 {
+    
+    Board board;//reading from game board to alter Gui display
+    //Board::fillBox(int row, int col)//Will use the fillbox command to allow user to fill in spots through the Gui
+    
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
