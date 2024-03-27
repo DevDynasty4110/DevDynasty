@@ -229,15 +229,15 @@ void Board::removeDigits(int count)
         int j = cellId % __ROWS;
         if (j != 0)
         {
-            j = j - 1;
+            j--;
         }
         // if tile isn't empty, make it empty
         // willclear() tests to see if it will clear out the entire row/column/box
-        bool notSafeToClear = willClear(i, j);
-        printf("Not safe to clear (%d, %d): %d\n", i, j, notSafeToClear);
-        std::cout << board << std::endl;
-        if (!board[i][j] && !willClear(i, j))
+        bool safeToClear = !willClear(i, j);
+        printf("Candidate: (%d, %d)\n", i, j);
+        if (board[i][j] && safeToClear)
         {
+            printf("Cleared tile(%d, %d)\n", i, j);
             count--;
             board[i][j] = 0;
         }
