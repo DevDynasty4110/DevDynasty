@@ -81,7 +81,9 @@ void Board::fillBox(int row, int col)
 }
 
 int Board::randomGenerator(int num)
-{ // needs seed I think, not random
+{
+    // seeds the random generator
+    srand(static_cast<unsigned int>(time(0)));
     return (int)floor(
         (float)(rand() / double(RAND_MAX) * num + 1));
 }
