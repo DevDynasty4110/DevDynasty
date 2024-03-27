@@ -46,7 +46,7 @@ public:
 
     /// @brief Iterate through rows and fill diagonal of board
     void fillDiagonal();
-    
+
     /// @brief used to check if smaller matrix has specific number in it
     /// @param rowStart row to start at for checking
     /// @param colStart column to start at for checking
@@ -63,7 +63,7 @@ public:
     /// @param num max number to be generated
     /// @return random number between 1 and num
     int randomGenerator(int num);
-    
+
     /// @brief verify num is able to be placed in position
     /// @param i row position
     /// @param j column position
@@ -90,7 +90,15 @@ public:
     /// @param j column to work on
     /// @return true if it can be filled, false if it is complete
     bool fillRemaining(int i, int j);
-    
+
+    /// @brief Check the row, column, and sub-Box to see if removing tile(row, column)
+    ///        would clear out an entire row/column/box.
+    /// @param row The corresponding row of the selected tile
+    /// @param column The corresponding column of the selected tile
+    /// @return Returns True if removing tile(row, column) will clear
+    ///         an entire row/column/box
+    bool willClear(int row, int column);
+
     /// @brief remove num number of digits
     /// @param num number of digits to be removed from the board
     /// for user to solve
