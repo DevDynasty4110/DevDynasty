@@ -35,11 +35,11 @@ void Board::generateBoard(int difficulty)
     fillRemaining(0, SRR);
 
     // Remove Randomly difficulty digits to make game
-    removeDigits(difficulty);
+    removeDigits(nRemove[difficulty]);
 }
 
 void Board::fillDiagonal()
-{   // iterate through each row, increment i by square root
+{ // iterate through each row, increment i by square root
     // to keep place of diagonal in each row
     for (int i = 0; i < __ROWS; i = i + SRR)
     {
@@ -49,7 +49,7 @@ void Board::fillDiagonal()
 }
 
 bool Board::unUsedInBox(int rowStart, int colStart, int num)
-{   // iterate through smaller matrix
+{ // iterate through smaller matrix
     for (int i = 0; i < SRR; i++)
     {
         for (int j = 0; j < SRR; j++)
@@ -81,7 +81,7 @@ void Board::fillBox(int row, int col)
 }
 
 int Board::randomGenerator(int num)
-{   // needs seed I think, not random
+{ // needs seed I think, not random
     return (int)floor(
         (float)(rand() / double(RAND_MAX) * num + 1));
 }
@@ -93,7 +93,7 @@ bool Board::isSafe(int i, int j, int num)
 }
 
 bool Board::unUsedInRow(int i, int num)
-{   // iterate through row
+{ // iterate through row
     for (int j = 0; j < __ROWS; j++)
     {
         if (board[i][j] == num)
@@ -105,7 +105,7 @@ bool Board::unUsedInRow(int i, int num)
 }
 
 bool Board::unUsedInCol(int j, int num)
-{   // iterate through column
+{ // iterate through column
     for (int i = 0; i < __ROWS; i++)
     {
         if (board[i][j] == num)
@@ -117,7 +117,7 @@ bool Board::unUsedInCol(int j, int num)
 }
 
 bool Board::fillRemaining(int i, int j)
-{   // increment i and reset j because j has reached max
+{ // increment i and reset j because j has reached max
     if (j >= __ROWS && i < __ROWS - 1)
     {
         i = i + 1;
@@ -154,7 +154,7 @@ bool Board::fillRemaining(int i, int j)
         }
     } // iterate through each possible number (1-9)
     for (int num = 1; num <= __ROWS; num++)
-    {   // if num can be put in position, do it
+    { // if num can be put in position, do it
         // and move to the next position
         if (isSafe(i, j, num))
         {
@@ -168,10 +168,58 @@ bool Board::fillRemaining(int i, int j)
     }
     return false;
 }
-
-void Board::removeDigits(int num)
+bool Board::willClear(int row, int column)
 {
-    int count = num;
+    // check row:
+    bool solo = true; // becomes true if it finds another tile in search sector
+    int boxRowStart = 2;
+    int boxColStart = 2;
+    for (int i = 0; i < __COLUMNS; i++)
+    {
+        if (board[row][i] && (i != column))
+        {
+            solo = false;
+            goto endTest; // break out of loop and go to endTest
+        }
+    }
+    // search column:
+    for (int i = 0; i < __ROWS; i++)
+    {
+        if (board[i][column] && (i != row))
+        {
+            solo = false;
+            goto endTest; //
+        }
+    }
+    // search box:
+    // determine what box to look for
+    if (row < 6)
+        boxRowStart = 1;
+    if (row < 3)
+        boxRowStart = 0;
+    if (column < 6)
+        boxColStart = 1;
+    if (column < 3)
+        boxColStart = 0;
+
+    for (int r = boxRowStart; r < boxRowStart + 3; r++)
+    {
+        for (int c = boxColStart; c < boxColStart + 3; c++)
+        {
+            if (board[r][c] && (r != row && c != column))
+            {
+                solo = false;
+                goto endTest; // break out of both loops and end test
+            }
+        }
+    }
+endTest: // label to jump to
+    return solo;
+}
+
+void Board::removeDigits(int count)
+{
+
     // loop while there are still tiles to be removed
     while (count != 0)
     {
@@ -184,7 +232,11 @@ void Board::removeDigits(int num)
             j = j - 1;
         }
         // if tile isn't empty, make it empty
-        if (board[i][j] != 0)
+        // willclear() tests to see if it will clear out the entire row/column/box
+        bool notSafeToClear = willClear(i, j);
+        printf("Not safe to clear (%d, %d): %d\n", i, j, notSafeToClear);
+        std::cout << board << std::endl;
+        if (!board[i][j] && !willClear(i, j))
         {
             count--;
             board[i][j] = 0;
@@ -223,7 +275,10 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
         }
         for (int j = 0; j < __COLUMNS; ++j)
         { // print actual value
-            std::cout << b.board[i][j];
+            if (b.board[i][j] != 0)
+            {
+                std::cout << b.board[i][j];
+            }
             std::cout << "\t";
 
             // print vertical border in these two cases
