@@ -1,73 +1,96 @@
 #include "../include/gui.h"
-// app declaration
-// structure citation: https://docs.wxwidgets.org/latest/overview_helloworld.html
+
 #ifdef GUI // only compiles if "#define GUI" is uncommented
 
-class Gui : public wxApp
-{
+class SudokuApp : public wxApp {
 public:
     bool OnInit() override;
 };
-// This defines the equivalent of main() for the current platform.
-wxIMPLEMENT_APP(Gui);
-class SudokuFrame : public wxFrame
-{
+
+wxIMPLEMENT_APP(SudokuApp);
+
+class SudokuFrame : public wxFrame {
 public:
     SudokuFrame();
 
 private:
-    void OnHello(wxCommandEvent &event);
-    void OnExit(wxCommandEvent &event);
-    void OnAbout(wxCommandEvent &event);
+    void OnHello(wxCommandEvent& event);
+    void OnExit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent& event);
+    void OnEasy(wxCommandEvent& event);
+    void OnMedium(wxCommandEvent& event);
+    void OnHard(wxCommandEvent& event);
 };
-enum
-{
-    ID_Hello = 1
+
+enum {
+    ID_Hello = 1,
+    ID_Easy,
+    ID_Medium,
+    ID_Hard
 };
-bool Gui::OnInit()
-{
-    SudokuFrame *frame = new SudokuFrame();
+
+bool SudokuApp::OnInit() {
+    SudokuFrame* frame = new SudokuFrame();
     frame->Show();
     return true;
 }
 
-// the parent sudoku frame to hold everything
 SudokuFrame::SudokuFrame()
-    : wxFrame(nullptr, wxID_ANY, __APP_NAME, wxDefaultPosition, wxSize(1600, 1000))
-{
-
-    Board board; // reading from game board to alter Gui display
-    // Board::fillBox(int row, int col)//Will use the fillbox command to allow user to fill in spots through the Gui
-
-    wxMenu *menuFile = new wxMenu;
+    : wxFrame(nullptr, wxID_ANY, __APP_NAME) {
+    wxMenu* menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
-                     "Help string shown in status bar for this menu item");
+        "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar* menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
     SetMenuBar(menuBar);
     CreateStatusBar();
     SetStatusText("Welcome to wxWidgets!");
-    Bind(wxEVT_MENU, &SudokuFrame::OnHello, this, ID_Hello);
-    Bind(wxEVT_MENU, &SudokuFrame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &SudokuFrame::OnExit, this, wxID_EXIT);
+
+    // Adding buttons
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    wxButton* btnEasy = new wxButton(this, ID_Easy, "Easy");
+    wxButton* btnMedium = new wxButton(this, ID_Medium, "Medium");
+    wxButton* btnHard = new wxButton(this, ID_Hard, "Hard");
+    sizer->Add(btnEasy, 0, wxALL, 10);
+    sizer->Add(btnMedium, 0, wxALL, 10);
+    sizer->Add(btnHard, 0, wxALL, 10);
+
+    SetSizer(sizer);
+
+    // Binding button events
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnEasy, this, ID_Easy);
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnMedium, this, ID_Medium);
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnHard, this, ID_Hard);
 }
-void SudokuFrame::OnExit(wxCommandEvent &event)
-{
+
+void SudokuFrame::OnExit(wxCommandEvent& event) {
     Close(true);
 }
 
-void SudokuFrame::OnAbout(wxCommandEvent &event)
-{
+void SudokuFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("This is a wxWidgets Hello World example",
-                 "About Hello World", wxOK | wxICON_INFORMATION);
+        "About Hello World", wxOK | wxICON_INFORMATION);
 }
-void SudokuFrame::OnHello(wxCommandEvent &event)
-{
+
+void SudokuFrame::OnHello(wxCommandEvent& event) {
     wxLogMessage("Hello world from wxWidgets!");
 }
+
+void SudokuFrame::OnEasy(wxCommandEvent& event) {
+    wxLogMessage("Easy mode selected!");
+}
+
+void SudokuFrame::OnMedium(wxCommandEvent& event) {
+    wxLogMessage("Medium mode selected!");
+}
+
+void SudokuFrame::OnHard(wxCommandEvent& event) {
+    wxLogMessage("Hard mode selected!");
+}
+
 #endif
