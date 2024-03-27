@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 // define preprocessor macros:
 #define __EASY 0
 #define __MEDIUM 1
