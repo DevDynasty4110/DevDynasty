@@ -7,7 +7,6 @@ class Gui : public wxApp
 {
 public:
     bool OnInit() override;
-    
 };
 // This defines the equivalent of main() for the current platform.
 wxIMPLEMENT_APP(Gui);
@@ -31,13 +30,15 @@ bool Gui::OnInit()
     frame->Show();
     return true;
 }
+
+// the parent sudoku frame to hold everything
 SudokuFrame::SudokuFrame()
-    : wxFrame(nullptr, wxID_ANY, __APP_NAME)
+    : wxFrame(nullptr, wxID_ANY, __APP_NAME, wxDefaultPosition, wxSize(1600, 1000))
 {
-    
-    Board board;//reading from game board to alter Gui display
-    //Board::fillBox(int row, int col)//Will use the fillbox command to allow user to fill in spots through the Gui
-    
+
+    Board board; // reading from game board to alter Gui display
+    // Board::fillBox(int row, int col)//Will use the fillbox command to allow user to fill in spots through the Gui
+
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
