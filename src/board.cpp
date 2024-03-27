@@ -4,7 +4,7 @@
  */
 
 #include "../include/board.h"
-extern int nRemove[] = {__TOTAL_TILES - __N_TILES_EASY, __TOTAL_TILES - __N_TILES_MEDIUM, __TOTAL_TILES - __N_TILES_HARD};
+int nRemove[] = {__TOTAL_TILES - __N_TILES_EASY, __TOTAL_TILES - __N_TILES_MEDIUM, __TOTAL_TILES - __N_TILES_HARD};
 double floor(double x)
 {                            // return truncated value
     return (double)((int)x); // truncate and then cast back to double
@@ -82,10 +82,15 @@ void Board::fillBox(int row, int col)
 
 int Board::randomGenerator(int num)
 {
-    // seeds the random generator
-    srand(static_cast<unsigned int>(time(0)));
-    return (int)floor(
-        (float)(rand() / double(RAND_MAX) * num + 1));
+    static bool seeded = false; // static allows for this variable to be unimutable
+    if (!seeded)
+    {
+        srand(static_cast<unsigned int>(time(0))); // seeds the random generator
+
+        seeded = true;
+    }
+    // updated randomGenerator line
+    return static_cast<int>(floor((static_cast<float>(rand()) / RAND_MAX) * num));
 }
 
 bool Board::isSafe(int i, int j, int num)
@@ -122,7 +127,7 @@ bool Board::fillRemaining(int i, int j)
 { // increment i and reset j because j has reached max
     if (j >= __ROWS && i < __ROWS - 1)
     {
-        i = i + 1;
+        i++;
         j = 0;
     } // iterated through all columns and rows, nothing lef return true
     if (i >= __ROWS && j >= __ROWS)
@@ -147,7 +152,7 @@ bool Board::fillRemaining(int i, int j)
     {
         if (j == __ROWS - SRR)
         {
-            i = i + 1;
+            i++;
             j = 0;
             if (i >= __ROWS)
             {
@@ -172,16 +177,18 @@ bool Board::fillRemaining(int i, int j)
 }
 bool Board::willClear(int row, int column)
 {
-    // check row:
-    bool solo = true; // becomes true if it finds another tile in search sector
-    int boxRowStart = 2;
-    int boxColStart = 2;
+    // becomes false if it finds another tile in search sector---
+    bool soloRow = true;
+    bool soloCol = true;
+    bool soloBox = true;
+    //----
+    // search row:
     for (int i = 0; i < __COLUMNS; i++)
     {
         if (board[row][i] && (i != column))
         {
-            solo = false;
-            goto endTest; // break out of loop and go to endTest
+            soloRow = false;
+            break;
         }
     }
     // search column:
@@ -189,34 +196,28 @@ bool Board::willClear(int row, int column)
     {
         if (board[i][column] && (i != row))
         {
-            solo = false;
-            goto endTest; //
+            soloCol = false;
+            break;
         }
     }
     // search box:
     // determine what box to look for
-    if (row < 6)
-        boxRowStart = 1;
-    if (row < 3)
-        boxRowStart = 0;
-    if (column < 6)
-        boxColStart = 1;
-    if (column < 3)
-        boxColStart = 0;
+    int boxColStart = (column / 3) * 3;
+    int boxRowStart = (row / 3) * 3;
 
     for (int r = boxRowStart; r < boxRowStart + 3; r++)
     {
         for (int c = boxColStart; c < boxColStart + 3; c++)
         {
-            if (board[r][c] && (r != row && c != column))
+            if (board[r][c] != 0 && !(r == row && c == column))
             {
-                solo = false;
+                soloBox = false;
                 goto endTest; // break out of both loops and end test
             }
         }
     }
 endTest: // label to jump to
-    return solo;
+    return (soloRow || soloCol || soloBox);
 }
 
 void Board::removeDigits(int count)
@@ -225,21 +226,18 @@ void Board::removeDigits(int count)
     // loop while there are still tiles to be removed
     while (count != 0)
     {
-        int cellId = randomGenerator(__ROWS * __COLUMNS) - 1;
+        int cellId = randomGenerator(__ROWS * __COLUMNS);
         // extract coordinates i and j
         int i = (cellId / __ROWS);
         int j = cellId % __ROWS;
-        if (j != 0)
-        {
-            j--;
-        }
         // if tile isn't empty, make it empty
         // willclear() tests to see if it will clear out the entire row/column/box
+        // printf("Candidate: (%d, %d)\n", i, j);
+
         bool safeToClear = !willClear(i, j);
-        printf("Candidate: (%d, %d)\n", i, j);
-        if (board[i][j] && safeToClear)
+        if (board[i][j] != 0 && safeToClear)
         {
-            printf("Cleared tile(%d, %d)\n", i, j);
+            // printf("Cleared tile(%d, %d)\n", i, j);
             count--;
             board[i][j] = 0;
         }

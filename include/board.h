@@ -20,7 +20,7 @@ class Board
 {
 private:
     // represents the board with row and column constants
-    uint board[__ROWS][__COLUMNS];
+    int board[__ROWS][__COLUMNS];
 
     int SRR = __SRR;
 
