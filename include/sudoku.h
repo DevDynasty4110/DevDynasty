@@ -13,8 +13,8 @@
 // please use comments, do not remove the line (for ease of use) -Liam
 
 //---------------
-#define TERMINAL
-// #define GUI
+//#define TERMINAL
+#define GUI
 //---------------
 
 // for easy and quick access
