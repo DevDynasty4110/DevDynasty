@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 // define preprocessor macros:
+#define COLOR_PRINT
 #define __EASY 0
 #define __MEDIUM 1
 #define __HARD 2

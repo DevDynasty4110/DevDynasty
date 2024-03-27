@@ -32,7 +32,21 @@ int main()
     int difficulty;
     while (true)
     {
-        std::cout << "Please enter a difficulty:\n0: Easy\n1: Medium\n2: Hard" << std::endl;
+        std::cout << "Please enter a difficulty:\n0:"
+#ifdef COLOR_PRINT
+                  << "\033[1;32m"
+#endif
+                  << " Easy\n\033[0m1: "
+#ifdef COLOR_PRINT
+                  << "\033[1;34m"
+#endif
+                  << "Medium\n\033[0m2: "
+#ifdef COLOR_PRINT
+                  << "\033[1;31m"
+#endif
+                  << "Hard\033[0m"
+
+                  << std::endl;
         if (!(std::cin >> difficulty))
         {
             std::cout << "Invalid input. Please enter an integer." << std::endl;

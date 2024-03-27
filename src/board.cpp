@@ -277,7 +277,14 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
         { // print actual value
             if (b.board[i][j] != 0)
             {
+// print with color
+#ifdef COLOR_PRINT
+                std::cout << "\033[1;34m";
+#endif
                 std::cout << b.board[i][j];
+#ifdef COLOR_PRINT
+                std::cout << "\033[0m";
+#endif
             }
             std::cout << "\t";
 
