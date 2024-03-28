@@ -41,3 +41,8 @@ clean:
 	rm -rf $(OBJ_PTH) *.out *.exe $(EXECUTABLE)
 cleanWin:
 	del /Q /F $(OBJ_PTH)/*.o *.out *.exe $(EXECUTABLE)
+
+test:
+	make clean
+	make
+	./$(EXECUTABLE)
