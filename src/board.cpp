@@ -15,6 +15,7 @@ double floor(double x)
  */
 Board::Board()
 {
+
     for (int i = 0; i < __ROWS; i++)
     {
         for (int j = 0; j < __COLUMNS; j++)
@@ -24,10 +25,65 @@ Board::Board()
 
 Board::~Board()
 {
+    // i have this commented out because it throws a seg fault...
+    //  delete[] lockedTiles;
 }
 
-void Board::generateBoard(int difficulty)
+bool Board::isLocked(int n)
 {
+    // binary search since lockedTiles is already sorted!
+    // define start and end search indexes
+    int start = 0;
+    int end = nTiles;
+    while (start <= end)
+    {
+        int indx = ((end - start) / 2) + start; // calculate midpoint (search point)
+
+        if (lockedTiles[indx] == n)
+        { // found!!
+            return true;
+        }
+        if (lockedTiles[indx] < n)
+        {                   // search upper sector
+            start = indx + 1; // shrink lower bound
+        }
+        else
+        {                     // search lower sector:
+            end = indx - 1; // move lower bound up
+        }
+    }
+    // n not found in array:
+    return false;
+}
+
+int Board::getDifficulty()
+{
+    return difficulty;
+}
+
+int Board::getnTiles()
+{
+    return nTiles;
+}
+
+Tile Board::getTile(int n)
+{
+    Tile result;
+    result.row = n / __COLUMNS;
+    result.column = n % __ROWS;
+    result.value = board[result.row][result.column];
+    return result;
+}
+int Board::tileToInt(Tile &tile)
+{
+    return (tile.row * __ROWS) + tile.column;
+}
+
+void Board::generateBoard(int dif)
+{
+    nTiles = __TOTAL_TILES - nRemove[dif];
+    difficulty = dif;
+    lockedTiles = new int[nTiles]; // dynamically allocated, must use destructor
     // Fill the diagonal of ROWS x COLUMNS matrices
     fillDiagonal();
 
@@ -35,7 +91,20 @@ void Board::generateBoard(int difficulty)
     fillRemaining(0, SRR);
 
     // Remove Randomly difficulty digits to make game
-    removeDigits(nRemove[difficulty]);
+    removeDigits(nRemove[dif]);
+
+    // set remaining digits to be locked in place
+    int indx = 0; // placeholder for the working index
+    for (int i = 0; i < __TOTAL_TILES; i++)
+    {
+        Tile current = getTile(i);
+        if (current.value) // if not zero:
+        {
+            lockedTiles[indx] = i; // add i value to locked tiles
+            // lockedTiles will be sorted
+            indx++;
+        }
+    }
 }
 
 void Board::fillDiagonal()

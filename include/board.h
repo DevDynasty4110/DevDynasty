@@ -17,12 +17,19 @@
 #define __SRR 3 // square root of rows/columns (aka what smaller boxes will be)
 extern int nRemove[];
 
+struct Tile
+{
+    int row, column, value;
+};
+
 class Board
 {
 private:
     // represents the board with row and column constants
     int board[__ROWS][__COLUMNS];
-
+    int difficulty;
+    int nTiles;
+    // dynamically allocated at runtime
     int SRR = __SRR;
 
 public:
@@ -35,6 +42,28 @@ public:
 
     /// @brief default destructor
     ~Board();
+    int *lockedTiles; // holds the indexes of locked tiles
+
+    /// @brief Returns a result of type Tile
+    /// that corresponds to the n value (0-80)
+    /// this breaks it up into row and column
+    /// @param n the number between 0 and 80 that gets converted
+    /// to a row and column value
+    /// @return returns a value of type Tile
+    Tile getTile(int n);
+
+    int getDifficulty();
+    int getnTiles();
+
+    int tileToInt(Tile &tile);
+
+    /// @brief checks to see if tile #n is a locked tile
+    /// a tile is locked if it is a part of the starting board
+    /// and thus cannot be mutated.
+    /// Since the array is sorted, binary search can be used O(lg(n))
+    /// @param n the n-value, to be converted into coordinates
+    /// @return a bool that is true if locked, false otherwise
+    bool isLocked(int n);
 
     void autoSolve();
 
