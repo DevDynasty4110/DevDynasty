@@ -19,7 +19,12 @@ Board::Board()
     for (int i = 0; i < __ROWS; i++)
     {
         for (int j = 0; j < __COLUMNS; j++)
-            board[i][j] = 0;
+        {
+            board[i][j] = 0; // empty board
+#ifdef CONFLICT_COLORING
+            conflicts[i][j] = false; // set all conflicts to false
+#endif
+        }
     }
 }
 
@@ -68,7 +73,50 @@ bool Board::isLocked(int n) const
     // n not found in array:
     return false;
 }
+#ifdef CONFLICT_COLORING
+bool Board::checkForConflicts(Tile tile)
+{
 
+    // check row:
+    for (int i = 0; i < __COLUMNS; i++)
+    {
+        if (board[tile.row][i] == tile.value && (i != tile.column))
+        { // conflict!
+            conflicts[tile.row][tile.column] = true;
+            return true;
+        }
+    }
+    // check column:
+    for (int i = 0; i < __ROWS; i++)
+    {
+        if (board[i][tile.column] == tile.value && (i != tile.row))
+        {
+            conflicts[tile.row][tile.column] = true;
+            return true;
+        }
+    }
+    // check box
+    int boxStartRow = (tile.row / __ROWS) * SRR;
+    int boxStartCol = (tile.column / __COLUMNS) * SRR;
+
+    for (int r = boxStartRow; r < boxStartRow + SRR; r++)
+    {
+        for (int c = boxStartCol; c < boxStartCol + SRR; c++)
+        {
+            if (board[r][c] == tile.value && !(r == tile.row && c == tile.column))
+            {
+                conflicts[tile.row][tile.column] = true;
+
+                return true;
+            }
+        }
+    }
+
+    // no conflicts:
+    conflicts[tile.row][tile.column] = false;
+    return false;
+}
+#endif
 int Board::getDifficulty()
 {
     return difficulty;
@@ -398,6 +446,9 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
 #ifdef COLOR_PRINT
                 int n = (__ROWS * i) + j;
                 std::cout << ((b.isLocked(n)) ? "\033[1;34m" : "\033[0m"); // prints blue digit if locked
+#ifdef CONFLICT_COLORING
+                std::cout << (b.conflicts[i][j] ? "\033[1;31m" : ""); // prints in red if conflicting value
+#endif
 #endif
                 std::cout << b.board[i][j];
 #ifdef COLOR_PRINT

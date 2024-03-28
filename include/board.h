@@ -5,6 +5,7 @@
 #include <ctime>
 // define preprocessor macros:
 #define COLOR_PRINT
+// #define CONFLICT_COLORING // colors red if conflict appears
 #define __EASY 0
 #define __MEDIUM 1
 #define __HARD 2
@@ -33,7 +34,9 @@ private:
     int board[__ROWS][__COLUMNS];
     int solution[__ROWS][__COLUMNS];
     int *lockedTiles; // holds the indexes of locked tiles
-
+#ifdef CONFLICT_COLORING
+    bool conflicts[__ROWS][__COLUMNS]; // holds the conflicting values
+#endif
     int difficulty;
     int nTiles;
     // dynamically allocated at runtime
@@ -73,6 +76,12 @@ public:
     /// @param n the n-value, to be converted into coordinates
     /// @return a bool that is true if locked, false otherwise
     bool isLocked(int n) const;
+
+    /// @brief checks row/column/box for duplicate
+    /// sets conflicts[i][j] = true if conflict is found
+    /// @param tile the tile of interest
+    /// @return true if conflict found
+    bool checkForConflicts(Tile tile);
 
     void autoSolve();
 
