@@ -21,6 +21,7 @@ void Game::quit()
         std::system("clear");
         exit(0);
     }
+    screenRefresh();
     return;
 }
 void Game::getHint()
@@ -64,6 +65,32 @@ void Game::printCmds()
     {
         printf("%d: %s\n", i, cmdTable[i].name);
     }
+}
+void printDifficulty()
+{
+    std::cout << "Please enter a difficulty:\n0:"
+#ifdef COLOR_PRINT
+              << "\033[5;31m"
+#endif
+              << " EXIT\n\033[0m1: "
+#ifdef COLOR_PRINT
+              << "\033[1;32m"
+#endif
+              << "Easy\n\033[0m2: "
+#ifdef COLOR_PRINT
+              << "\033[1;34m"
+#endif
+              << "Medium\n\033[0m3: "
+#ifdef COLOR_PRINT
+              << "\033[1;31m"
+#endif
+              << "Hard"
+#ifdef COLOR_PRINT
+              << "\033[0m"
+#endif
+
+              << std::endl;
+    return;
 }
 
 void Game::startGame()
@@ -113,31 +140,31 @@ int main()
     int difficulty;
     while (true)
     {
-        std::cout << "Please enter a difficulty:\n0:"
-#ifdef COLOR_PRINT
-                  << "\033[1;32m"
-#endif
-                  << " Easy\n\033[0m1: "
-#ifdef COLOR_PRINT
-                  << "\033[1;34m"
-#endif
-                  << "Medium\n\033[0m2: "
-#ifdef COLOR_PRINT
-                  << "\033[1;31m"
-#endif
-                  << "Hard\033[0m"
+        screenRefresh();
+        if (false)
+        {
+        jumpWhenInvalid:
+            screenRefresh();
+            std::cout << "INVALID DIFFICULTY" << std::endl;
+        }
 
-                  << std::endl;
+        printDifficulty();
+
         difficulty = getInput();
+        difficulty--;
         if (difficulty >= __EASY && difficulty <= __HARD)
         {
             game.setDifficulty(difficulty);
             game.setScoreScalar(scalarArr[difficulty]);
             break;
         }
+        else if (difficulty == -1)
+        {
+            game.quit();
+        }
         else
         {
-            std::cout << "INVALID DIFFICULTY" << std::endl;
+            goto jumpWhenInvalid;
         }
     }
     // exit status is just the exit code that is returned
