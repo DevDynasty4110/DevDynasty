@@ -14,6 +14,6 @@
 * Requirements Document (MVP) - <ins>**February 22nd**<ins>
 * Design Specification (MVP) - <ins>**March 7th**<ins>
 * Minimum Viable Product - <ins>**March 29th**<ins>
-* Requirements Document (Final) - <ins>**April 4th**<ins>
-* Design Specification (Final) - <ins>**April 4th**<ins>
-* Final Product - <ins>**April 4th**<ins>
+* Requirements Document (Final) - <ins>**April 8th**<ins>
+* Design Specification (Final) - <ins>**April 8th**<ins>
+* Final Product - <ins>**April 8th**<ins>
