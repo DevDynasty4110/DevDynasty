@@ -21,4 +21,6 @@
         - **Eval: will test by ensuring that there are instructions throughout entirety of game**
     3. Shall display sudoku header throughout entirety of game
         - **Eval: will test by looking for header at each step of the game**
-4. 
+4. Game shall offer hints.
+    1. Hint is telling the user the row, column, and value.
+        - **Eval: test to make sure that the hint is valid and wasn't already filled in yet**
