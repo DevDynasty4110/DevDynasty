@@ -21,12 +21,17 @@ struct Tile
 {
     int row, column, value;
 };
+struct NinebyNine
+{
+    int board[__ROWS][__COLUMNS];
+};
 
 class Board
 {
 private:
     // represents the board with row and column constants
     int board[__ROWS][__COLUMNS];
+    int solution[__ROWS][__COLUMNS];
     int *lockedTiles; // holds the indexes of locked tiles
 
     int difficulty;
@@ -53,6 +58,9 @@ public:
     /// @return returns a value of type Tile
     Tile getTile(int n);
 
+    NinebyNine getSolution();
+    Tile getTile(int r, int c);
+    void setTile(Tile &tile);
     int getDifficulty();
     int getnTiles();
 
@@ -64,7 +72,7 @@ public:
     /// Since the array is sorted, binary search can be used O(lg(n))
     /// @param n the n-value, to be converted into coordinates
     /// @return a bool that is true if locked, false otherwise
-    bool isLocked(int n);
+    bool isLocked(int n) const;
 
     void autoSolve();
 

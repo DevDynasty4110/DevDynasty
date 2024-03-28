@@ -29,7 +29,20 @@ Board::~Board()
     //  delete[] lockedTiles;
 }
 
-bool Board::isLocked(int n)
+NinebyNine Board::getSolution()
+{
+    NinebyNine result;
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            result.board[i][j] = solution[i][j];
+        }
+    }
+    return result;
+}
+
+bool Board::isLocked(int n) const
 {
     // binary search since lockedTiles is already sorted!
     // define start and end search indexes
@@ -78,6 +91,18 @@ int Board::tileToInt(Tile &tile)
 {
     return (tile.row * __ROWS) + tile.column;
 }
+void Board::setTile(Tile &tile)
+{
+    board[tile.row][tile.column] = tile.value;
+}
+Tile Board::getTile(int r, int c)
+{
+    Tile result;
+    result.row = r;
+    result.column = c;
+    result.value = board[r][c];
+    return result;
+}
 
 void Board::generateBoard(int dif)
 {
@@ -90,6 +115,15 @@ void Board::generateBoard(int dif)
 
     // Fill remaining blocks
     fillRemaining(0, SRR);
+
+    // set solution before removing digits:
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            solution[i][j] = board[i][j];
+        }
+    }
 
     // Remove Randomly difficulty digits to make game
     removeDigits(nRemove[dif]);
@@ -362,7 +396,8 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
             {
 // print with color
 #ifdef COLOR_PRINT
-                std::cout << "\033[1;34m";
+                int n = (__ROWS * i) + j;
+                std::cout << ((b.isLocked(n)) ? "\033[1;34m" : "\033[0m"); // prints blue digit if locked
 #endif
                 std::cout << b.board[i][j];
 #ifdef COLOR_PRINT
