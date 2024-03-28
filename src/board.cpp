@@ -44,11 +44,11 @@ bool Board::isLocked(int n)
             return true;
         }
         if (lockedTiles[indx] < n)
-        {                   // search upper sector
+        {                     // search upper sector
             start = indx + 1; // shrink lower bound
         }
         else
-        {                     // search lower sector:
+        {                   // search lower sector:
             end = indx - 1; // move lower bound up
         }
     }
@@ -84,8 +84,11 @@ void Board::generateBoard(int dif)
     nTiles = __TOTAL_TILES - nRemove[dif];
     difficulty = dif;
     lockedTiles = new int[nTiles]; // dynamically allocated, must use destructor
+
+    /// TODO: Fix this method so it isn't so slow!!
     // Fill the diagonal of ROWS x COLUMNS matrices
     fillDiagonal();
+    ///-----------------
 
     // Fill remaining blocks
     fillRemaining(0, SRR);
@@ -106,11 +109,11 @@ void Board::generateBoard(int dif)
         }
     }
 }
-
+/// TODO: Fix this method
 void Board::fillDiagonal()
 { // iterate through each row, increment i by square root
     // to keep place of diagonal in each row
-    for (int i = 0; i < __ROWS; i = i + SRR)
+    for (int i = 0; i < __ROWS; i += SRR)
     {
         // fill smaller matrix
         fillBox(i, i);

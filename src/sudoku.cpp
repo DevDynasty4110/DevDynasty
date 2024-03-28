@@ -14,6 +14,7 @@ int Game::sudoku()
 {
     // initialize board:
     Board board;
+    std::cout << "Generating board..." << std::endl;
     board.generateBoard(difficulty);
     std::cout << board << std::endl;
 
