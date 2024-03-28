@@ -80,7 +80,7 @@ int Game::sudoku()
     Board board;
     board.generateBoard(difficulty);
     while (true)
-    {
+    {                    // this is the game loop
         screenRefresh(); // clear screen
         std::cout << board << std::endl;
         printCmds();
@@ -95,7 +95,7 @@ int Game::sudoku()
                 printf("Enter a valid choice\n");
             }
         }
-        (this->*cmdTable[choice].func)();
+        (this->*cmdTable[choice].func)(); // runs the command that was picked
     }
     return 0; // return 0 if exits properly
 }
