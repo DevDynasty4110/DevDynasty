@@ -29,6 +29,29 @@ void Game::getHint()
 }
 void Game::solve()
 {
+    screenRefresh();
+
+    printf("SOLVING...\nAre you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
+    int choice = getInput();
+    if (choice == 0)
+    { // solve board
+        gameOver = true;
+        NinebyNine solution = board.getSolution();
+        for (int i = 0; i < __ROWS; i++)
+        {
+            for (int j = 0; j < __COLUMNS; j++)
+            { // set values
+                Tile current;
+                current.row = i;
+                current.column = j;
+                current.value = solution.board[i][j];
+                board.setTile(current);
+            }
+        }
+    }
+    // else:
+    screenRefresh();
+    return;
 }
 void Game::enterSquare()
 {
@@ -104,12 +127,18 @@ void Game::startGame()
 int Game::sudoku()
 {
     // initialize board:
-    Board board;
+    gameOver = false;
     board.generateBoard(difficulty);
     while (true)
-    {                    // this is the game loop
+    { // this is the game loop
+
         screenRefresh(); // clear screen
         std::cout << board << std::endl;
+        if (gameOver)
+        {
+            printf("Thanks for playing!\n");
+            break;
+        }
         printCmds();
         int choice;
         while (true)

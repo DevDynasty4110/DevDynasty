@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <cstdio>
 #include "../include/board.h"
 #include <limits>
 
@@ -7,7 +8,7 @@
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
 
-//print out at beginning of screen
+// print out at beginning of screen
 #define __GAME_HEADER "\033[97;44m\
  ____  _   _ ____   ___  _  ___   _     \n\
 / ___|| | | |  _ \\ / _ \\| |/ / | | |    \n\
@@ -16,7 +17,6 @@
 |____/ \\___/|____/ \\___/|_|\\_\\\\___/     \n\
  ______________________________________ \033[97;107m\n\
 |____________\033[5;34;107mBy DevDynasty\033[97;107m_____________|\033[0m\n\n"
-
 
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
@@ -47,7 +47,7 @@ struct Command
     const char *name;
     void (Game::*func)();
 };
-    int getInput(); //get integer input
+int getInput(); // get integer input
 
 class Game
 {
@@ -70,8 +70,7 @@ public:
                  {"Get hint", &Game::getHint},
                  {"Solve", &Game::solve},
                  {"Enter Square", &Game::enterSquare},
-                 {"Clear Square", &Game::clearSquare}
-                 } {}
+                 {"Clear Square", &Game::clearSquare}} {}
     int sudoku(); // replacement for main()
     void startGame();
     // returns a completed board from the current unsolvded board
@@ -101,7 +100,8 @@ public:
 private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
-    Board gameBoard;
+    bool gameOver;
+    Board board;
     double scoreScalar;
     int nTiles;
 };
