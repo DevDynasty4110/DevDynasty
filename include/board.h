@@ -27,6 +27,8 @@ class Board
 private:
     // represents the board with row and column constants
     int board[__ROWS][__COLUMNS];
+    int *lockedTiles; // holds the indexes of locked tiles
+
     int difficulty;
     int nTiles;
     // dynamically allocated at runtime
@@ -42,7 +44,6 @@ public:
 
     /// @brief default destructor
     ~Board();
-    int *lockedTiles; // holds the indexes of locked tiles
 
     /// @brief Returns a result of type Tile
     /// that corresponds to the n value (0-80)
