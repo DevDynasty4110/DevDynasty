@@ -2,10 +2,17 @@
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
 
+void screenRefresh()
+{
+    std::system("clear");
+    printf(__GAME_HEADER);
+    return;
+}
+
 // cmdTable commands:---
 void Game::quit()
 {
-    std::system("clear");
+    screenRefresh();
     printf("EXITING...");
     printf("Are you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
     int choice = getInput();
@@ -74,7 +81,7 @@ int Game::sudoku()
     board.generateBoard(difficulty);
     while (true)
     {
-        std::system("clear"); // clear screen
+        screenRefresh(); // clear screen
         std::cout << board << std::endl;
         printCmds();
         int choice;
@@ -101,8 +108,8 @@ void Game::setScoreScalar(double s)
 #ifdef TERMINAL
 int main()
 {
-    std::system("clear"); // clear screen
     Game game;
+    screenRefresh();
     int difficulty;
     while (true)
     {

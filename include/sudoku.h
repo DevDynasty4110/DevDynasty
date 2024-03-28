@@ -7,6 +7,15 @@
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
 
+//print out at beginning of screen
+#define __GAME_HEADER "\
+ ____  _   _ ____   ___  _  ___   _ \n\
+/ ___|| | | |  _ \\ / _ \\| |/ / | | |\n\
+\\___ \\| | | | | | | | | | ' /| | | |\n\
+ ___) | |_| | |_| | |_| | . \\| |_| |\n\
+|____/ \\___/|____/ \\___/|_|\\_\\_____/ \n"
+
+
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
 // if you comment one out, uncomment the other
