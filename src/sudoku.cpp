@@ -67,7 +67,8 @@ void Game::refreshConflicts()
     }
 }
 #endif
-void Game::enterSquare()
+
+Tile Game::getMove(bool needValue)
 {
     Tile move;
     while (true)
@@ -76,12 +77,21 @@ void Game::enterSquare()
         move.row = (getInput() - 1);
         printf("Please enter the Column[1-9]: ");
         move.column = (getInput() - 1);
-        printf("Please enter the Value: ");
-        move.value = getInput();
+        if (needValue)
+        {
+        enterValue:
+            printf("Please enter the Value: ");
+            move.value = getInput();
+        }
+        // check to make sure is valid:
         if ((move.row >= 0 && move.row < 9) &&
-            (move.column >= 0 && move.column < 9) &&
-            move.value >= 0 && move.column <= 9)
+            (move.column >= 0 && move.column < 9))
         { // check to see if not locked:
+            if (needValue && !(move.value >= 0 && move.value <= 9))
+            {
+                printf("invalid value!\n");
+                goto enterValue; // get value again!
+            }
             int n = board.tileToInt(move);
             if (board.isLocked(n))
             {
@@ -99,6 +109,12 @@ void Game::enterSquare()
             printf("Invalid options\n");
         }
     }
+    return move;
+}
+
+void Game::enterSquare()
+{
+    Tile move = getMove(true);
     board.setTile(move);
 #ifdef CONFLICT_COLORING
     refreshConflicts();
@@ -110,6 +126,9 @@ void Game::enterSquare()
 }
 void Game::clearSquare()
 {
+    Tile move = getMove(false);
+    move.value = 0; // zero will clear out the tile
+    board.setTile(move);
 }
 void Game::submit()
 {

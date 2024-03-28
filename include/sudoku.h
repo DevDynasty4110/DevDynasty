@@ -80,7 +80,7 @@ public:
     // returns a completed board from the current unsolvded board
     Board autoSolve();
     Move generateHint(); // returns a move
-
+    Tile getMove(bool needVal);
     Board generateBoard(int difficulty); // please use difficulty macros here!
     int getDifficulty();
     void setDifficulty(int dif)
