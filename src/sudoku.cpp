@@ -26,6 +26,40 @@ void Game::quit()
 }
 void Game::getHint()
 {
+    Tile hint;
+    NinebyNine solution = board.getSolution();
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            Tile current = board.getTile(i, j);
+            if (!current.value)
+            {
+                // found empty tile
+                hint.row = i;
+                hint.column = j;
+                hint.value = solution.board[i][j];
+                printf("\033[1;32mHINT: Tile<%d, %d> = %d\033[0m\n", hint.row + 1, hint.column + 1, hint.value);
+                return;
+            }
+        }
+    }
+    // find an incorrect tile:
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            Tile current = board.getTile(i, j);
+            if (current.value != solution.board[i][j])
+            {
+                // print
+                printf("\033[1;32mHINT (Tile correction): Tile<%d, %d> should be: %d\033[0m\n", current.row + 1, current.column + 1, solution.board[i][j]);
+                return;
+            }
+        }
+    }
+
+    return;
 }
 void Game::solve()
 {
@@ -210,6 +244,7 @@ int Game::sudoku()
             printf("Thanks for playing!\n");
             break;
         }
+    skipRefresh:
         printCmds();
         int choice;
         while (true)
@@ -223,6 +258,12 @@ int Game::sudoku()
             }
         }
         (this->*cmdTable[choice].func)(); // runs the command that was picked
+
+        if (choice == 3) // hint chosen
+        {
+            goto skipRefresh; // this is so that the hint doesn't
+                              // get cleared off of the screen
+        }
     }
     return 0; // return 0 if exits properly
 }

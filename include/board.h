@@ -20,6 +20,7 @@ extern int nRemove[];
 
 struct Tile
 {
+    Tile();
     int row, column, value;
 };
 struct NinebyNine

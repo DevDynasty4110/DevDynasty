@@ -33,6 +33,7 @@ Board::~Board()
     // i have this commented out because it throws a seg fault...
     //  delete[] lockedTiles;
 }
+Tile::Tile() : row(0), column(0), value(0) {}
 
 NinebyNine Board::getSolution()
 {
