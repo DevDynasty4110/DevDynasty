@@ -85,10 +85,8 @@ void Board::generateBoard(int dif)
     difficulty = dif;
     lockedTiles = new int[nTiles]; // dynamically allocated, must use destructor
 
-    /// TODO: Fix this method so it isn't so slow!!
     // Fill the diagonal of ROWS x COLUMNS matrices
     fillDiagonal();
-    ///-----------------
 
     // Fill remaining blocks
     fillRemaining(0, SRR);
@@ -109,7 +107,7 @@ void Board::generateBoard(int dif)
         }
     }
 }
-/// TODO: Fix this method
+
 void Board::fillDiagonal()
 { // iterate through each row, increment i by square root
     // to keep place of diagonal in each row
@@ -158,6 +156,8 @@ void Board::fillBox(int row, int col)
     {
         for (int j = 0; j < SRR; j++)
         {
+            // use the preshuffled array instead of guessing
+            // and checking to see if it already exists in the box
             board[row + i][col + j] = nineArr[(SRR * i) + j];
         }
     }
