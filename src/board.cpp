@@ -137,17 +137,28 @@ bool Board::unUsedInBox(int rowStart, int colStart, int num)
 
 void Board::fillBox(int row, int col)
 {
-    int num;
+    // using a shuffled array made much faster runtime!
+    int nineArr[9];
+    for (int i = 1; i < 10; i++)
+    {
+        nineArr[i - 1] = i;
+    }
+    // shuffle
+    for (int i = 8; i >= 0; i--)
+    { // count down
+        // swap with random index
+        int swp = randomGenerator(i);
+        int temp = nineArr[swp];
+        nineArr[swp] = nineArr[i];
+        nineArr[i] = temp;
+    }
+
     // iterate through smaller matrix
     for (int i = 0; i < SRR; i++)
     {
         for (int j = 0; j < SRR; j++)
         {
-            do
-            { // find random number and see if it is in smaller matrix
-                num = randomGenerator(__ROWS);
-            } while (!unUsedInBox(row, col, num));
-            board[row + i][col + j] = num;
+            board[row + i][col + j] = nineArr[(SRR * i) + j];
         }
     }
 }
