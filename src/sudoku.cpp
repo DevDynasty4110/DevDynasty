@@ -2,6 +2,60 @@
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
 
+// cmdTable commands:---
+void Game::quit()
+{
+    std::system("clear");
+    printf("EXITING...");
+    printf("Are you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
+    int choice = getInput();
+    if (choice == 0)
+        exit(0);
+    return;
+}
+void Game::getHint()
+{
+}
+void Game::solve()
+{
+}
+void Game::enterSquare()
+{
+}
+void Game::clearSquare()
+{
+}
+void Game::submit()
+{
+}
+//---------------------
+
+int getInput()
+{
+    while (true)
+    {
+        int value = 0;
+        if (!(std::cin >> value))
+        {
+            std::cout << "Invalid input. Please enter an integer." << std::endl;
+            std::cin.clear();                                                   // Clear the fail bit
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        }
+        else
+        {
+            return value;
+        }
+    }
+}
+
+void Game::printCmds()
+{
+    for (int i = 0; i < __N_COMMANDS; i++)
+    {
+        printf("%d: %s\n", i, cmdTable[i].name);
+    }
+}
+
 void Game::startGame()
 {
     // TODO
@@ -14,10 +68,25 @@ int Game::sudoku()
 {
     // initialize board:
     Board board;
-    std::cout << "Generating board..." << std::endl;
     board.generateBoard(difficulty);
-    std::cout << board << std::endl;
-
+    while (true)
+    {
+        std::system("clear"); // clear screen
+        std::cout << board << std::endl;
+        printCmds();
+        int choice;
+        while (true)
+        {
+            choice = getInput();
+            if (choice >= 0 && choice < __N_COMMANDS)
+                break;
+            else
+            {
+                printf("Enter a valid choice\n");
+            }
+        }
+        (this->*cmdTable[choice].func)();
+    }
     return 0; // return 0 if exits properly
 }
 
@@ -29,6 +98,7 @@ void Game::setScoreScalar(double s)
 #ifdef TERMINAL
 int main()
 {
+    std::system("clear"); // clear screen
     Game game;
     int difficulty;
     while (true)
@@ -48,13 +118,8 @@ int main()
                   << "Hard\033[0m"
 
                   << std::endl;
-        if (!(std::cin >> difficulty))
-        {
-            std::cout << "Invalid input. Please enter an integer." << std::endl;
-            std::cin.clear();                                                   // Clear the fail bit
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-        }
-        else if (difficulty >= __EASY && difficulty <= __HARD)
+        difficulty = getInput();
+        if (difficulty >= __EASY && difficulty <= __HARD)
         {
             game.setDifficulty(difficulty);
             game.setScoreScalar(scalarArr[difficulty]);

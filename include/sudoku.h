@@ -22,7 +22,7 @@
 #define SCALAR_ARRAY
 extern double scalarArr[];
 #endif
-
+class Game; // forward declaration
 // holds the row/column and the value for a game move
 struct Move
 {
@@ -31,15 +31,42 @@ struct Move
     uint column;
     uint value;
 };
+struct Command
+{
+    const char *name;
+    void (Game::*func)();
+};
+    int getInput(); //get integer input
 
 class Game
 {
 public:
+    // command table commands:
+    void quit();
+    void getHint();
+    void solve();
+    void enterSquare();
+    void clearSquare();
+    void submit();
+    //-------------
+
+    void printCmds(); // print all the commands
+// cmdTable gives the ability to enter commands for user input
+#define __N_COMMANDS 6
+    Game() : cmdTable{
+                 {"\033[5;31mQuit\033[0m", &Game::quit},
+                 {"\033[1;32mSubmit\033[0m", &Game::submit},
+                 {"Get hint", &Game::getHint},
+                 {"Solve", &Game::solve},
+                 {"Enter Square", &Game::enterSquare},
+                 {"Clear Square", &Game::clearSquare}
+                 } {}
     int sudoku(); // replacement for main()
     void startGame();
     // returns a completed board from the current unsolvded board
     Board autoSolve();
-    Move getHint();                      // returns a move
+    Move generateHint(); // returns a move
+
     Board generateBoard(int difficulty); // please use difficulty macros here!
     int getDifficulty();
     void setDifficulty(int dif)
@@ -61,6 +88,7 @@ public:
     }
 
 private:
+    Command cmdTable[__N_COMMANDS];
     int difficulty;
     Board gameBoard;
     double scoreScalar;
