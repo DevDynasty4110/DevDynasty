@@ -53,8 +53,60 @@ void Game::solve()
     screenRefresh();
     return;
 }
+#ifdef CONFLICT_COLORING
+void Game::refreshConflicts()
+{
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            Tile curr = board.getTile(i, j);
+
+            board.checkForConflicts(curr);
+        }
+    }
+}
+#endif
 void Game::enterSquare()
 {
+    Tile move;
+    while (true)
+    {
+        printf("Please enter the Row[1-9]: ");
+        move.row = (getInput() - 1);
+        printf("Please enter the Column[1-9]: ");
+        move.column = (getInput() - 1);
+        printf("Please enter the Value: ");
+        move.value = getInput();
+        if ((move.row >= 0 && move.row < 9) &&
+            (move.column >= 0 && move.column < 9) &&
+            move.value >= 0 && move.column <= 9)
+        { // check to see if not locked:
+            int n = board.tileToInt(move);
+            if (board.isLocked(n))
+            {
+                screenRefresh();
+                std::cout << board << std::endl;
+                printf("That tile cannot be changed!\n");
+            }
+            else
+            {          // able to change the tile:
+                break; // break out of the loop
+            }
+        }
+        else
+        {
+            printf("Invalid options\n");
+        }
+    }
+    board.setTile(move);
+#ifdef CONFLICT_COLORING
+    refreshConflicts();
+#endif
+
+    // refresh conflicts list
+
+    return;
 }
 void Game::clearSquare()
 {

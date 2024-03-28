@@ -49,6 +49,7 @@ struct Command
 };
 int getInput(); // get integer input
 
+
 class Game
 {
 public:
@@ -60,17 +61,20 @@ public:
     void clearSquare();
     void submit();
     //-------------
+    #ifdef CONFLICT_COLORING
+    void refreshConflicts();
+    #endif
 
     void printCmds(); // print all the commands
 // cmdTable gives the ability to enter commands for user input
 #define __N_COMMANDS 6
     Game() : cmdTable{
                  {"\033[5;31mQuit\033[0m", &Game::quit},
-                 {"\033[1;32mSubmit\033[0m", &Game::submit},
-                 {"Get hint", &Game::getHint},
-                 {"Solve", &Game::solve},
                  {"Enter Square", &Game::enterSquare},
-                 {"Clear Square", &Game::clearSquare}} {}
+                 {"Clear Square", &Game::clearSquare},
+                 {"Get hint", &Game::getHint},
+                 {"\033[1;32mSubmit\033[0m", &Game::submit},
+                 {"Solve", &Game::solve}} {}
     int sudoku(); // replacement for main()
     void startGame();
     // returns a completed board from the current unsolvded board
