@@ -10,7 +10,10 @@ void Game::quit()
     printf("Are you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
     int choice = getInput();
     if (choice == 0)
+    {
+        std::system("clear");
         exit(0);
+    }
     return;
 }
 void Game::getHint()
