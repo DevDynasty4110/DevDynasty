@@ -6,6 +6,8 @@
 // define preprocessor macros:
 #define COLOR_PRINT
 // #define CONFLICT_COLORING // colors red if conflict appears
+// #define OLD_BOARD
+#define NEW_BOARD
 #define __EASY 0
 #define __MEDIUM 1
 #define __HARD 2

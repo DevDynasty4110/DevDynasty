@@ -10,13 +10,13 @@
 
 // print out at beginning of screen
 #define __GAME_HEADER "\033[97;44m\
- ____  _   _ ____   ___  _  ___   _     \n\
-/ ___|| | | |  _ \\ / _ \\| |/ / | | |    \n\
-\\___ \\| | | | | | | | | | ' /| | | |    \n\
- ___) | |_| | |_| | |_| | . \\| |_| |    \n\
-|____/ \\___/|____/ \\___/|_|\\_\\\\___/     \n\
- ______________________________________ \033[97;107m\n\
-|____________\033[5;34;107mBy DevDynasty\033[97;107m_____________|\033[0m\n\n"
+\033[0m\t\t    \033[97;44m ____  _   _ ____   ___  _  ___   _     \n\
+\033[0m\t\t    \033[97;44m/ ___|| | | |  _ \\ / _ \\| |/ / | | |    \n\
+\033[0m\t\t    \033[97;44m\\___ \\| | | | | | | | | | ' /| | | |    \n\
+\033[0m\t\t    \033[97;44m ___) | |_| | |_| | |_| | . \\| |_| |    \n\
+\033[0m\t\t    \033[97;44m|____/ \\___/|____/ \\___/|_|\\_\\\\___/     \n\
+\033[0m\t\t    \033[97;44m ______________________________________ \033[97;107m\n\
+\033[0m\t\t    \033[97;107m|____________\033[5;34;107mBy DevDynasty\033[97;107m_____________|\033[0m\n\n"
 
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
@@ -69,7 +69,7 @@ public:
 // cmdTable gives the ability to enter commands for user input
 #define __N_COMMANDS 6
     Game() : cmdTable{
-                 {"\033[5;31mQuit\033[0m", &Game::quit},
+                 {"\033[5;31mQuit\t\033[0m", &Game::quit},
                  {"Enter Square", &Game::enterSquare},
                  {"Clear Square", &Game::clearSquare},
                  {"Get hint", &Game::getHint},
