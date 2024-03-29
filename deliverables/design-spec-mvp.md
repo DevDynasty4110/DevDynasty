@@ -12,3 +12,10 @@
     1. Various text will be printed with ANSI color codes.
     2. Each option for user input printed to the screen will explain what the user needs to press to perform a function (ex: press 0 to quit).
     3. Header with ANSI color codes will be displayed to the screen for each step.
+4. Various functions will be implemented for the user to alter the board state.
+    1. Quit function that allows the user to exit() the program at any time.
+    2. Move function that changes an empty space in the board to the number that the user entered. 
+    3. Erase function that lets a user erase a previously entered value back to an empty one.
+    4. Hint function that once is selected prints to the user what column, row, and value the given hint is to represent a "free" move.
+    5. Submit button that compares the user's board to the initial board before the entries were removed to verify that they match.
+    6. Solve function that allows the user to finish the entire board rather than continuously entering single moves. 
