@@ -5,13 +5,13 @@
 2. Shall have easy, medium, and hard difficulty settings.
     1. Easy:
         1. 33 tiles of the board will be complete.
-            
+        ![Easy](../images/easy.png)
     2. Medium:
         1. 25 tiles of the board will be complete.
-            
+        ![Medium](../images/medium.png)
     3. Hard:
         1. 17 tiles of the board will be complete.
-
+        ![Hard](../images/hard.png)
 3. Game shall be played in the terminal.
     
     1. Shall incorporate various color schemes to the game.
