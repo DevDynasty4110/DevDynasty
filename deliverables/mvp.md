@@ -22,13 +22,17 @@
 4. Shall be various modes of interaction for the user while playing
     ![Interaction](../images/interaction.png)
     1. Shall allow the user to quit at any given time.
+    ![Quit](../images/quit.png)
     2. Shall allow the user to make an entry to the board.
     ![Entry](../images/entry.png)
     3. Shall allow the user to erase their entry.
+    ![Erase](../images/erase.png)
     4. Shall offer hints that tell the user the row, column, and value.
     ![Hint](../images/hint.png)
     5. Shall allow user to submit their board when they are finished.
+    ![Submit](../images/submit.png)
     6. Shall allow user to solve entire board at once.
+    ![Solved](../images/solved.png)
 
 ## Contributors
 * Michael Sloan
