@@ -183,6 +183,7 @@ void Game::submit()
     // no collisions...
     printf("\033[1;32mCorrect!!\033[0m\n");
     gameOver = true;
+    win = true;
     return;
 }
 //---------------------
@@ -251,12 +252,16 @@ int Game::sudoku()
 {
     // initialize board:
     gameOver = false;
+    win = false;
+
     board.generateBoard(difficulty);
     while (true)
     { // this is the game loop
-
-        screenRefresh(); // clear screen
-        std::cout << board << std::endl;
+        if (!win)
+        {
+            screenRefresh(); // clear screen
+            std::cout << board << std::endl;
+        }
         if (gameOver)
         {
             printf("Thanks for playing!\n");

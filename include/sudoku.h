@@ -105,6 +105,7 @@ private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
     bool gameOver;
+    bool win;
     Board board;
     double scoreScalar;
     int nTiles;
