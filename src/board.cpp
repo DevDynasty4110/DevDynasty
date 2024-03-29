@@ -482,7 +482,7 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
     }
     std::cout << std::endl
               << "  |"; // left edge w/o index
-    for (int i = 0; i < __ROWS * __CELL_WIDTH; i++)
+    for (int i = 0; i < (__ROWS - 1) * __CELL_WIDTH; i++)
     {
         std::cout << "---"; // divider
     }
@@ -498,7 +498,7 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
             {
                 if (j % __CELL_WIDTH == 0)
                 {
-                    std::cout << j % __ROWS
+                    std::cout << 0    //(3 * i) + (j / 3)
                               << " "; // number placeholder
                 }
                 else if ((j + 1) % __ROWS == 0)
@@ -518,19 +518,35 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
         else if ((i + 1) % __ROWS == 0 && i != 0) // horizontal lines
         {
             std::cout << "  |";
-            for (int j = 0; j < __ROWS * __CELL_WIDTH; j++)
+            for (int j = 0; j < (__ROWS - 1) * (__CELL_WIDTH); j++)
             {
                 std::cout << "---";
             }
             std::cout << "|";
             if (i != (__ROWS * __CELL_WIDTH) - 1)
             {
-                std::cout << "\n  |";
+                std::cout << "\n  | ";
+                for (int j = 0; j < 3; j++)
+                {
+                    for (int k = 0; k < 23; k++)
+                    {
+                        std::cout << " ";
+                    }
+                    std::cout << "|";
+                }
             }
         }
         else
         {
-            std::cout << "  |";
+            std::cout << "  | ";
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 23; k++)
+                {
+                    std::cout << " ";
+                }
+                std::cout << "|";
+            }
         }
         std::cout << "\n";
     }
