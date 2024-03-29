@@ -1,7 +1,7 @@
 # Sudoku Minimum Viable Product (MVP)
 
 1. Shall randomize starting board at beginning of game.
-
+    <br>*see pictures in Req. 2 to display board randomness*<br>
 2. Shall have easy, medium, and hard difficulty settings.
     1. Easy:
         1. 33 tiles of the board will be complete.
