@@ -429,6 +429,11 @@ void printHorizontal()
 
 std::ostream &operator<<(std::ostream &os, const Board &b)
 { // iterate through entire matrix to print to console
+#define __CELL_WIDTH 3
+#define __PAD "       "  // 7spaces
+#define __MED_PAD "   "  // 3spaces
+#define __SMALL_PAD "  " // 2spaces
+#ifdef OLD_BOARD
     for (int i = 0; i < __ROWS; ++i)
     {
         std::cout << "\n";
@@ -467,5 +472,69 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
         }
         std::cout << "\n";
     }
+#endif
+
+#ifdef NEW_BOARD
+    std::cout << __PAD; // pad from the wall
+    for (int i = 0; i < __ROWS; i++)
+    { // generate indexes
+        std::cout << i + 1 << __PAD;
+    }
+    std::cout << std::endl
+              << "  |"; // left edge w/o index
+    for (int i = 0; i < __ROWS * __CELL_WIDTH; i++)
+    {
+        std::cout << "---"; // divider
+    }
+    std::cout << "|\n"; // end of divider
+    // print out
+    for (int i = 0; i < __ROWS * __CELL_WIDTH; i++)
+    {
+        if (i % __CELL_WIDTH == 0) // print indexes
+        {
+            std::cout << ((i + 1) / __CELL_WIDTH) + 1 << " |" << __SMALL_PAD << __SMALL_PAD;
+            // print out contents:
+            for (int j = 0; j < __ROWS * __CELL_WIDTH; j++)
+            {
+                if (j % __CELL_WIDTH == 0)
+                {
+                    std::cout << j % __ROWS
+                              << " "; // number placeholder
+                }
+                else if ((j + 1) % __ROWS == 0)
+                {
+                    std::cout << "|" << __MED_PAD;
+                }
+                else if (j % __ROWS > 6)
+                {
+                    std::cout << __SMALL_PAD;
+                }
+                else
+                {
+                    std::cout << __MED_PAD;
+                }
+            }
+        }
+        else if ((i + 1) % __ROWS == 0 && i != 0) // horizontal lines
+        {
+            std::cout << "  |";
+            for (int j = 0; j < __ROWS * __CELL_WIDTH; j++)
+            {
+                std::cout << "---";
+            }
+            std::cout << "|";
+            if (i != (__ROWS * __CELL_WIDTH) - 1)
+            {
+                std::cout << "\n  |";
+            }
+        }
+        else
+        {
+            std::cout << "  |";
+        }
+        std::cout << "\n";
+    }
+
+#endif
     return os;
 }
