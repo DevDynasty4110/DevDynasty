@@ -166,6 +166,24 @@ void Game::clearSquare()
 }
 void Game::submit()
 {
+    // check and compare to the solution
+    NinebyNine solution = board.getSolution(); // use to compare
+    for (int i = 0; i < __ROWS; i++)
+    {
+        for (int j = 0; j < __COLUMNS; j++)
+        {
+            Tile current = board.getTile(i, j);
+            if (current.value != solution.board[i][j])
+            { // incorrect!!
+                printf("Incorrect!\nUse a hint if you get stuck!\n");
+                return;
+            }
+        }
+    }
+    // no collisions...
+    printf("\033[1;32mCorrect!!\033[0m\n");
+    gameOver = true;
+    return;
 }
 //---------------------
 
@@ -259,7 +277,7 @@ int Game::sudoku()
         }
         (this->*cmdTable[choice].func)(); // runs the command that was picked
 
-        if (choice == 3) // hint chosen
+        if (choice == 3 || (choice == 4 && !gameOver)) // hint or submit chosen
         {
             goto skipRefresh; // this is so that the hint doesn't
                               // get cleared off of the screen
