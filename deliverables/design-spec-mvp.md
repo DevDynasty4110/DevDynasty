@@ -18,4 +18,7 @@
     3. Erase function that lets a user erase a previously entered value back to an empty one.
     4. Hint function that once is selected prints to the user what column, row, and value the given hint is to represent a "free" move.
     5. Submit button that compares the user's board to the initial board before the entries were removed to verify that they match.
-    6. Solve function that allows the user to finish the entire board rather than continuously entering single moves. 
+    6. Solve function that displays the complete board to the user and ends the current game.
+
+## Contributors
+* Michael Sloan 
