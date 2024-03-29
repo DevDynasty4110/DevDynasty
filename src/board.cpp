@@ -498,8 +498,18 @@ std::ostream &operator<<(std::ostream &os, const Board &b)
             {
                 if (j % __CELL_WIDTH == 0)
                 {
-                    std::cout << 0    //(3 * i) + (j / 3)
-                              << " "; // number placeholder
+                    int row = i / 3;
+                    int col = j / 3;
+                    int value = b.board[row][col];
+                    if (value)
+                    {
+                        int n = (__ROWS * row) + col;
+                        std::cout << ((b.isLocked(n)) ? "\033[1;34m" : "\033[0m"); // prints blue digit if locked
+                        std::cout << value                                         //(3 * i) + (j / 3)
+                                  << " \033[0m";                                   // number placeholder
+                    }
+                    else
+                        std::cout << "  ";
                 }
                 else if ((j + 1) % __ROWS == 0)
                 {
