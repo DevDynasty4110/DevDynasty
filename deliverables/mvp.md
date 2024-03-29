@@ -14,7 +14,9 @@
         ![Hard](../images/hard.png)
 3. Game shall be played in the terminal.
     1. Shall incorporate various color schemes to the game.
+    <br>*see picture in Req. 3.3 to display color schemes*<br>
     2. Shall instruct user how to interact with the game at each step.
+    <br>*see picture in Req. 3.3 to display interaction instructions*<br>
     3. Shall display sudoku header throughout entirety of game.
     ![Terminal](../images/difficulty-selection.png)
 4. Shall be various modes of interaction for the user while playing
@@ -27,4 +29,7 @@
     ![Hint](../images/hint.png)
     5. Shall allow user to submit their board when they are finished.
     6. Shall allow user to solve entire board at once.
+
+## Contributors
+* Michael Sloan
         
