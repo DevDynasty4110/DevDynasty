@@ -8,3 +8,7 @@
         1. Counter increments after each square is revealed, revelation process stops once counter hits 25.
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
+3. Board and all other user interface will be displayed via std::cout and printf.
+    1. Various text will be printed with ANSI color codes.
+    2. Each option for user input printed to the screen will explain what the user needs to press to perform a function (ex: press 0 to quit).
+    3. Header with ANSI color codes will be displayed to the screen for each step.
