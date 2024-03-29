@@ -207,10 +207,18 @@ int getInput()
 }
 
 void Game::printCmds()
-{
-    for (int i = 0; i < __N_COMMANDS; i++)
+{ // 2 columns instead of one
+    int half = __N_COMMANDS / 2;
+    for (int i = 0; i < half; i++)
     {
-        printf("%d: %s\n", i, cmdTable[i].name);
+        if (i < __N_COMMANDS)
+        {
+            printf("%d: %s\t\t", i, cmdTable[i].name);
+        }
+        if (i + half < __N_COMMANDS)
+        {
+            printf("%d: %s\n", i + half, cmdTable[i + half].name);
+        }
     }
 }
 void printDifficulty()
