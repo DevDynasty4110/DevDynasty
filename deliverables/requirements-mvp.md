@@ -33,4 +33,7 @@
     5. Shall allow user to submit their board when they are finished.
         - **Eval: test to ensure there is a submit option that checks validity of the user's board** 
     6. Shall allow user to solve entire board at once.
-        - **Eval: make sure user is able to solve entire board if they select solve option** 
+        - **Eval: make sure board is solved if user selects solve button** 
+
+## Contributors
+* Michael Sloan
