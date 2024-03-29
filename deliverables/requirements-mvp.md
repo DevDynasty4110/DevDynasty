@@ -1,4 +1,4 @@
-# Requirements (MVP)
+# Sudoku Requirements (MVP)
 
 1. Shall randomize starting board at beginning of game.
     - **Eval: will test by running several cases to make**
