@@ -38,4 +38,5 @@
 * Michael Sloan
 * Liam Tolkkinen
 * Samuel Medley
+* Alex McDaniel
         
