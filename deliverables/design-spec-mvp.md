@@ -23,3 +23,4 @@
 ## Contributors
 * Michael Sloan 
 * Liam Tolkkinen
+* Samuel Medley
