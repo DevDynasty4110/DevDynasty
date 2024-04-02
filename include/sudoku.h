@@ -1,11 +1,22 @@
 #pragma once
 #include <iostream>
+#include <cstdio>
 #include "../include/board.h"
 #include <limits>
 
 #define __EASY_SCALAR 0.5
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
+
+// print out at beginning of screen
+#define __GAME_HEADER "\033[97;44m\
+\033[0m\t\t    \033[97;44m ____  _   _ ____   ___  _  ___   _     \n\
+\033[0m\t\t    \033[97;44m/ ___|| | | |  _ \\ / _ \\| |/ / | | |    \n\
+\033[0m\t\t    \033[97;44m\\___ \\| | | | | | | | | | ' /| | | |    \n\
+\033[0m\t\t    \033[97;44m ___) | |_| | |_| | |_| | . \\| |_| |    \n\
+\033[0m\t\t    \033[97;44m|____/ \\___/|____/ \\___/|_|\\_\\\\___/     \n\
+\033[0m\t\t    \033[97;44m ______________________________________ \033[97;107m\n\
+\033[0m\t\t    \033[97;107m|____________\033[5;34;107mBy DevDynasty\033[97;107m_____________|\033[0m\n\n"
 
 // define if using GUI or Terminal:
 // YOU CAN ONLY HAVE 1 DEFINED AT A TIME!
@@ -22,7 +33,7 @@
 #define SCALAR_ARRAY
 extern double scalarArr[];
 #endif
-
+class Game; // forward declaration
 // holds the row/column and the value for a game move
 struct Move
 {
@@ -31,15 +42,46 @@ struct Move
     uint column;
     uint value;
 };
+struct Command
+{
+    const char *name;
+    void (Game::*func)();
+};
+int getInput(); // get integer input
+
 
 class Game
 {
 public:
+    // command table commands:
+    void quit();
+    void getHint();
+    void solve();
+    void enterSquare();
+    void clearSquare();
+    void submit();
+    Board board;
+    //-------------
+    #ifdef CONFLICT_COLORING
+    void refreshConflicts();
+    #endif
+
+    void printCmds(); // print all the commands
+// cmdTable gives the ability to enter commands for user input
+#define __N_COMMANDS 6
+    Game() : cmdTable{
+                 {"\033[5;31mQuit\t\033[0m", &Game::quit},
+                 {"Enter Square", &Game::enterSquare},
+                 {"Clear Square", &Game::clearSquare},
+                 {"Get hint", &Game::getHint},
+                 {"\033[1;32mSubmit\033[0m", &Game::submit},
+                 {"Solve", &Game::solve}} {}
     int sudoku(); // replacement for main()
     void startGame();
     // returns a completed board from the current unsolvded board
     Board autoSolve();
-    Move getHint();                      // returns a move
+    Move generateHint(); // returns a move
+    Tile getMove(bool needVal);
     Board generateBoard(int difficulty); // please use difficulty macros here!
     int getDifficulty();
     void setDifficulty(int dif)
@@ -61,8 +103,10 @@ public:
     }
 
 private:
+    Command cmdTable[__N_COMMANDS];
     int difficulty;
-    Board gameBoard;
+    bool gameOver;
+    bool win;
     double scoreScalar;
     int nTiles;
 };

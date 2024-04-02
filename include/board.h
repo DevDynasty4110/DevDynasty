@@ -1,7 +1,13 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 // define preprocessor macros:
+#define COLOR_PRINT
+// #define CONFLICT_COLORING // colors red if conflict appears
+// #define OLD_BOARD
+#define NEW_BOARD
 #define __EASY 0
 #define __MEDIUM 1
 #define __HARD 2
@@ -14,12 +20,29 @@
 #define __SRR 3 // square root of rows/columns (aka what smaller boxes will be)
 extern int nRemove[];
 
+struct Tile
+{
+    Tile();
+    int row, column, value;
+};
+struct NinebyNine
+{
+    int board[__ROWS][__COLUMNS];
+};
+
 class Board
 {
 private:
     // represents the board with row and column constants
-    uint board[__ROWS][__COLUMNS];
-
+    int board[__ROWS][__COLUMNS];
+    int solution[__ROWS][__COLUMNS];
+    int *lockedTiles; // holds the indexes of locked tiles
+#ifdef CONFLICT_COLORING
+    bool conflicts[__ROWS][__COLUMNS]; // holds the conflicting values
+#endif
+    int difficulty;
+    int nTiles;
+    // dynamically allocated at runtime
     int SRR = __SRR;
 
 public:
@@ -32,6 +55,36 @@ public:
 
     /// @brief default destructor
     ~Board();
+
+    /// @brief Returns a result of type Tile
+    /// that corresponds to the n value (0-80)
+    /// this breaks it up into row and column
+    /// @param n the number between 0 and 80 that gets converted
+    /// to a row and column value
+    /// @return returns a value of type Tile
+    Tile getTile(int n);
+
+    NinebyNine getSolution();
+    Tile getTile(int r, int c);
+    void setTile(Tile &tile);
+    int getDifficulty();
+    int getnTiles();
+
+    int tileToInt(Tile &tile);
+
+    /// @brief checks to see if tile #n is a locked tile
+    /// a tile is locked if it is a part of the starting board
+    /// and thus cannot be mutated.
+    /// Since the array is sorted, binary search can be used O(lg(n))
+    /// @param n the n-value, to be converted into coordinates
+    /// @return a bool that is true if locked, false otherwise
+    bool isLocked(int n) const;
+
+    /// @brief checks row/column/box for duplicate
+    /// sets conflicts[i][j] = true if conflict is found
+    /// @param tile the tile of interest
+    /// @return true if conflict found
+    bool checkForConflicts(Tile tile);
 
     void autoSolve();
 
@@ -46,7 +99,7 @@ public:
 
     /// @brief Iterate through rows and fill diagonal of board
     void fillDiagonal();
-    
+
     /// @brief used to check if smaller matrix has specific number in it
     /// @param rowStart row to start at for checking
     /// @param colStart column to start at for checking
@@ -63,7 +116,7 @@ public:
     /// @param num max number to be generated
     /// @return random number between 1 and num
     int randomGenerator(int num);
-    
+
     /// @brief verify num is able to be placed in position
     /// @param i row position
     /// @param j column position
@@ -90,7 +143,15 @@ public:
     /// @param j column to work on
     /// @return true if it can be filled, false if it is complete
     bool fillRemaining(int i, int j);
-    
+
+    /// @brief Check the row, column, and sub-Box to see if removing tile(row, column)
+    ///        would clear out an entire row/column/box.
+    /// @param row The corresponding row of the selected tile
+    /// @param column The corresponding column of the selected tile
+    /// @return Returns True if removing tile(row, column) will clear
+    ///         an entire row/column/box
+    bool willClear(int row, int column);
+
     /// @brief remove num number of digits
     /// @param num number of digits to be removed from the board
     /// for user to solve
