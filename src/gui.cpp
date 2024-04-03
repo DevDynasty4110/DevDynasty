@@ -15,7 +15,10 @@ public:
 private:
     Game game;  // Instance of Sudoku game
     wxGridSizer* sudokuGridSizer = nullptr;
+    
+    wxPanel* drawingPanel;
 
+    void OnDrawPanel(wxPaintEvent& evt);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     void OnEasy(wxCommandEvent& event);
@@ -42,7 +45,10 @@ bool SudokuApp::OnInit() {
     return true;
 }
 
-SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku Game", wxDefaultPosition, wxSize(450, 450)) {
+SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", wxDefaultPosition, wxSize(450, 450), wxDEFAULT_FRAME_STYLE & ~(wxMAXIMIZE_BOX | wxRESIZE_BORDER)) {
+    //gridline setup
+    drawingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(450, 450));
+    drawingPanel->Bind(wxEVT_PAINT, &SudokuFrame::OnDrawPanel, this);
     //menu setup
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(wxID_EXIT);
@@ -61,9 +67,9 @@ SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku Game", wxDefault
     btnMedium = new wxButton(this, ID_Medium, "Medium");
     btnHard = new wxButton(this, ID_Hard, "Hard");
 
-    sizer->Add(btnEasy, 0, wxALL, 10);
-    sizer->Add(btnMedium, 0, wxALL, 10);
-    sizer->Add(btnHard, 0, wxALL, 10);
+    sizer->Add(btnEasy, 0, wxALIGN_CENTER_HORIZONTAL, 10);
+    sizer->Add(btnMedium, 0, wxALIGN_CENTER_HORIZONTAL, 10);
+    sizer->Add(btnHard, 0, wxALIGN_CENTER_HORIZONTAL, 10);
 
     this->SetSizer(sizer);
     this->Layout();  // Apply the layout changes
@@ -117,6 +123,26 @@ void SudokuFrame::OnHard(wxCommandEvent& event) {
     btnMedium->Hide();
     btnHard->Hide();
     this->Layout();
+}
+
+void SudokuFrame::OnDrawPanel(wxPaintEvent& evt) {
+    wxPaintDC dc(drawingPanel);
+    dc.SetPen(wxPen(*wxBLACK, 3)); 
+
+    int tileHeight = 38; // Height of one tile
+    int lineThickness = 3; 
+    int sectionHeight = (3 * tileHeight) + (2 * lineThickness); // Height of one section
+
+    // Draw the 3x3 grid lines
+    int width, height;
+    drawingPanel->GetSize(&width, &height);
+
+    for (int i = 1; i <= 2; ++i) {
+        // Draw vertical line
+        dc.DrawLine(width / 3 * i, 0, width / 3 * i, height);
+        // Draw horizontal line
+        dc.DrawLine(0, sectionHeight * i, width, sectionHeight * i);
+    }
 }
 
 void SudokuFrame::UpdateBoardDisplay() {
