@@ -9,9 +9,9 @@
 #define __HARD_SCALAR 1.5
 
 // score calculator constants:
-#define ALPHA (1 / 60)
-#define T -300
-#define COEFFICIENT 1000
+#define ALPHA (1.0 / 60.0)
+#define T -300.0
+#define COEFFICIENT 1000.0
 // ------------------
 
 // print out at beginning of screen
@@ -55,7 +55,6 @@ struct Command
 };
 int getInput(); // get integer input
 
-
 class Game
 {
 public:
@@ -66,10 +65,10 @@ public:
     void enterSquare();
     void clearSquare();
     void submit();
-    //-------------
-    #ifdef CONFLICT_COLORING
+//-------------
+#ifdef CONFLICT_COLORING
     void refreshConflicts();
-    #endif
+#endif
 
     void printCmds(); // print all the commands
     int calculateScore(time_t totalTime);
