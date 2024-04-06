@@ -1,6 +1,7 @@
 #include "../include/sudoku.h"
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
+std::string difficultyNameArr[] = {"Easy", "Medium", "Hard"};
 
 void screenRefresh()
 {
@@ -26,6 +27,7 @@ void Game::quit()
 }
 void Game::getHint()
 {
+    nHintsUsed++; // increment for later score factor
     Tile hint;
     NinebyNine solution = board.getSolution();
     for (int i = 0; i < __ROWS; i++)
@@ -174,7 +176,8 @@ void Game::submit()
         {
             Tile current = board.getTile(i, j);
             if (current.value != solution.board[i][j])
-            { // incorrect!!
+            {                            // incorrect!!
+                nAttemptedSubmissions++; // increment for later scoring factor
                 printf("Incorrect!\nUse a hint if you get stuck!\n");
                 return;
             }
@@ -277,10 +280,9 @@ int fact(int x)
 int Game::calculateScore(time_t totalTime)
 {
     // exponential decay function
-    int n = 15; // number of iterations
+    int n = 20; // number of iterations
     double result = COEFFICIENT;
-    double x = -(ALPHA) * (totalTime - T);
-    printf("X = %f\n", x);
+    double x = (ALPHA) * (totalTime - T);
     double exponential = 0;
     for (int i = 0; i < n; i++)
     { // Taylor series for e^^x
@@ -288,8 +290,17 @@ int Game::calculateScore(time_t totalTime)
         double denominator = fact(i);
         exponential += (numerator / denominator); // sum
     }
-    result *= exponential;
+    result *= (1.0 / exponential);
     return static_cast<int>(result);
+}
+
+char *formatTime(int t)
+{
+    int minute = t / 60;
+    int second = t % 60;
+    char *result = new char[40];
+    std::sprintf(result, "%dm, %ds", minute, second);
+    return result;
 }
 
 // main() cant be defined if using a GUI
@@ -301,8 +312,11 @@ int Game::sudoku()
     // initialize board:
     gameOver = false;
     win = false;
+    nHintsUsed = 0;
+    nAttemptedSubmissions = 0;
 
     board.generateBoard(difficulty);
+    startTime = time(nullptr);
     while (true)
     { // this is the game loop
         if (!win)
@@ -317,17 +331,31 @@ int Game::sudoku()
             {
                 time_t endTime = time(nullptr);
                 time_t totalTime = endTime - startTime;
+                totalTime += 300;
                 // printout of score + time bonus
                 int timeBonus = calculateScore(totalTime);
-                printf("Total time: %lds\nTime Bonus: %d\n", totalTime, timeBonus);
 
-                if (totalTime < 300)
+                // if (totalTime < 300)
+                //{
+                //     timeBonus = 1000;
+                // }
+                printf("Game Results:\n");
+                printf("Number of hints used: %d ", nHintsUsed);
+                int hintDeduct = 300 * nHintsUsed;
+                if (nHintsUsed)
                 {
-                    timeBonus = 1000;
+                    printf("\t\033[1;31m(-%d Pts)\033[0m", hintDeduct);
                 }
+                printf("\n");
+                printf("Number of game submissions: %d", nAttemptedSubmissions);
+                printf("\n");
+                char *formattedTime = formatTime(static_cast<int>(totalTime));
+                printf("Total time: %s", formattedTime);
+                delete[] formattedTime;
+                printf("\t\t\033[1;32m(+%d Pt Time bonus)\033[0m\n", timeBonus);
             }
             printf("Thanks for playing!\n");
-            break;
+            // break;
         }
     skipRefresh:
         printCmds();
@@ -377,7 +405,7 @@ int main()
         printDifficulty();
 
         difficulty = getInput();
-        difficulty--;
+        difficulty--; // because the difficulty starts at 1, make it start at 0
         if (difficulty >= __EASY && difficulty <= __HARD)
         {
             game.setDifficulty(difficulty);

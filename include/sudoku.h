@@ -9,8 +9,9 @@
 #define __HARD_SCALAR 1.5
 
 // score calculator constants:
-#define ALPHA (1.0 / 60.0)
-#define T -300.0
+#define MIN_PER_DECAY 8.0 // how many minutes per half life
+#define ALPHA (1.0 / (MIN_PER_DECAY * 60.0))
+#define T 300.0
 #define COEFFICIENT 1000.0
 // ------------------
 
@@ -111,7 +112,10 @@ private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
     bool gameOver;
+    int nHintsUsed;
+    int nAttemptedSubmissions;
     bool win;
+    int scoreSubTotal;
     time_t startTime;
     Board board;
     double scoreScalar;
