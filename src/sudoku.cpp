@@ -1,7 +1,7 @@
 #include "../include/sudoku.h"
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
-std::string difficultyNameArr[] = {"Easy", "Medium", "Hard"};
+std::string difficultyNameArr[] = {"Easy\t\033[1;31m", "Medium\033[1;34m", "Hard\t\033[1;32m"};
 
 void screenRefresh()
 {
@@ -326,19 +326,24 @@ int Game::sudoku()
         }
         if (gameOver)
         {
-            // CHANGE THIS CONDITION (back to if (win))
-            if (true)
+            if (win)
             {
                 time_t endTime = time(nullptr);
                 time_t totalTime = endTime - startTime;
-                totalTime += 300;
                 // printout of score + time bonus
                 int timeBonus = calculateScore(totalTime);
 
-                // if (totalTime < 300)
-                //{
-                //     timeBonus = 1000;
-                // }
+                if (totalTime < 300)
+                {
+                    timeBonus = 1000;
+                }
+                int subTotal = (1000 - (nHintsUsed * 300)) + timeBonus;
+                int submitPenalty = subTotal;
+                for (int i = 0; i < nAttemptedSubmissions; i++)
+                {
+                    submitPenalty /= 2;
+                }
+                submitPenalty = subTotal - submitPenalty;
                 printf("Game Results:\n");
                 printf("Number of hints used: %d ", nHintsUsed);
                 int hintDeduct = 300 * nHintsUsed;
@@ -347,15 +352,26 @@ int Game::sudoku()
                     printf("\t\033[1;31m(-%d Pts)\033[0m", hintDeduct);
                 }
                 printf("\n");
-                printf("Number of game submissions: %d", nAttemptedSubmissions);
+                printf("Incorrect game submissions: %d", nAttemptedSubmissions);
+                if (nAttemptedSubmissions)
+                {
+                    printf("\t\033[1;31m(-%d Pts)\033[0m", submitPenalty);
+                }
                 printf("\n");
                 char *formattedTime = formatTime(static_cast<int>(totalTime));
                 printf("Total time: %s", formattedTime);
                 delete[] formattedTime;
                 printf("\t\t\033[1;32m(+%d Pt Time bonus)\033[0m\n", timeBonus);
+                int finalSubtotal = subTotal - submitPenalty - hintDeduct;
+                if (finalSubtotal < 0)
+                    finalSubtotal = 0; // cant have a negative score!
+                printf("Subtotal: \t\t\t\033[1;33m%d Pts\033[0m\n", finalSubtotal);
+                printf("Difficulty Scalar: %s\t(X%.1f)\033[0m\n", difficultyNameArr[difficulty].c_str(), scalarArr[difficulty]);
+                int finalScore = finalSubtotal * scalarArr[difficulty];
+                printf("Final score: \033[1;32m\t\t\t%d Pts\033[0m\n", finalScore);
             }
             printf("Thanks for playing!\n");
-            // break;
+            break;
         }
     skipRefresh:
         printCmds();
