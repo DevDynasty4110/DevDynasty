@@ -332,7 +332,7 @@ int Game::sudoku()
                 time_t totalTime = endTime - startTime;
                 // printout of score + time bonus
                 int timeBonus = calculateScore(totalTime);
-
+                // max time bonus possible is 1000
                 if (totalTime < 300)
                 {
                     timeBonus = 1000;
@@ -341,7 +341,7 @@ int Game::sudoku()
                 int submitPenalty = subTotal;
                 for (int i = 0; i < nAttemptedSubmissions; i++)
                 {
-                    submitPenalty /= 2;
+                    submitPenalty /= 1.5;
                 }
                 submitPenalty = subTotal - submitPenalty;
                 printf("Game Results:\n");
@@ -368,7 +368,7 @@ int Game::sudoku()
                 printf("Subtotal: \t\t\t\033[1;33m%d Pts\033[0m\n", finalSubtotal);
                 printf("Difficulty Scalar: %s\t(X%.1f)\033[0m\n", difficultyNameArr[difficulty].c_str(), scalarArr[difficulty]);
                 int finalScore = finalSubtotal * scalarArr[difficulty];
-                printf("Final score: \033[1;32m\t\t\t%d Pts\033[0m\n", finalScore);
+                printf("--------------------------------------------\nFinal score:\033[1;32m\t\t\t%d Pts\033[0m\n", finalScore);
             }
             printf("Thanks for playing!\n");
             break;
