@@ -252,6 +252,46 @@ void Game::startGame()
 {
     // TODO
 }
+
+double pow(double x, int n) // return: x**n
+{
+    double result = 1.0;
+    if (n == 0)
+        return result;
+    for (int i = 0; i < n; i++)
+    {
+        result *= x;
+    }
+    return result;
+}
+
+int fact(int x)
+{ // recursive factorial function
+    if (x == 0 || x == 1)
+    {
+        return 1; // base case
+    }
+    return (x * fact(x - 1));
+}
+
+int Game::calculateScore(time_t totalTime)
+{
+    // exponential decay function
+    int n = 15; // number of iterations
+    double result = COEFFICIENT;
+    double x = -(ALPHA) * (totalTime - T);
+    printf("X = %f\n", x);
+    double exponential = 0;
+    for (int i = 0; i < n; i++)
+    { // Taylor series for e^^x
+        double numerator = pow(x, i);
+        double denominator = fact(i);
+        exponential += (numerator / denominator); // sum
+    }
+    result *= exponential;
+    return static_cast<int>(result);
+}
+
 // main() cant be defined if using a GUI
 // Added an ifdef to determine which type of app it is
 
@@ -272,6 +312,20 @@ int Game::sudoku()
         }
         if (gameOver)
         {
+            // CHANGE THIS CONDITION (back to if (win))
+            if (true)
+            {
+                time_t endTime = time(nullptr);
+                time_t totalTime = endTime - startTime;
+                // printout of score + time bonus
+                int timeBonus = calculateScore(totalTime);
+                printf("Total time: %lds\nTime Bonus: %d\n", totalTime, timeBonus);
+
+                if (totalTime < 300)
+                {
+                    timeBonus = 1000;
+                }
+            }
             printf("Thanks for playing!\n");
             break;
         }

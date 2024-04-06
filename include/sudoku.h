@@ -8,6 +8,12 @@
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
 
+// score calculator constants:
+#define ALPHA (1 / 60)
+#define T -300
+#define COEFFICIENT 1000
+// ------------------
+
 // print out at beginning of screen
 #define __GAME_HEADER "\033[97;44m\
 \033[0m\t\t    \033[97;44m ____  _   _ ____   ___  _  ___   _     \n\
@@ -66,6 +72,7 @@ public:
     #endif
 
     void printCmds(); // print all the commands
+    int calculateScore(time_t totalTime);
 // cmdTable gives the ability to enter commands for user input
 #define __N_COMMANDS 6
     Game() : cmdTable{
@@ -106,6 +113,7 @@ private:
     int difficulty;
     bool gameOver;
     bool win;
+    time_t startTime;
     Board board;
     double scoreScalar;
     int nTiles;
