@@ -1,9 +1,7 @@
 #include <wx/wx.h>
 #include <wx/grid.h>
-#include <X11/Xlib.h>
 #include "../include/sudoku.h"  
 #include "../include/board.h"
-
 
 class SudokuApp : public wxApp {
 public:
@@ -17,7 +15,7 @@ public:
 private:
     Game game;  // Instance of Sudoku game
     wxGridSizer* sudokuGridSizer = nullptr;
-    
+    wxPanel* sudokuGridPanel;  // Panel for the Sudoku grid
     wxPanel* drawingPanel;
 
     void OnDrawPanel(wxPaintEvent& evt);
@@ -27,24 +25,26 @@ private:
     void OnMedium(wxCommandEvent& event);
     void OnHard(wxCommandEvent& event);
     void OnHint(wxCommandEvent& event);
-    void UpdateBoardDisplay();  // method to ppdate the GUI 
-    wxBoxSizer* sizer = nullptr;    // Sizer for buttons
-    wxButton* btnEasy = nullptr;    // Button for Easy
-    wxButton* btnMedium = nullptr;  // Button for Medium
-    wxButton* btnHard = nullptr;    // Button for Hard
-    wxButton* btnHint = nullptr;
+    void OnSolve(wxCommandEvent& event);
+    void OnSubmit(wxCommandEvent& event);
+    void UpdateBoardDisplay();  // Update the GUI for the Sudoku board
 
-    //Display* disp = XOpenDisplay(NULL);
-    //Screen*  scrn = DefaultScreenOfDisplay(disp);
-    //int height = scrn->height;
-    //int width  = scrn->width;
+    wxBoxSizer* sizer = nullptr;  // Sizer for buttons
+    wxButton* btnEasy = nullptr;  // Button for 'Easy'
+    wxButton* btnMedium = nullptr; // Button for 'Medium'
+    wxButton* btnHard = nullptr;   // Button for 'Hard'
+    wxButton* btnHint = nullptr;   // Button for 'Hint'
+    wxButton* btnSubmit = nullptr; //Button for submit
+    wxButton* btnSolve = nullptr; 
 };
 
 enum {
     ID_Easy = 0,
-    ID_Medium = 1,
-    ID_Hard = 2,
-    ID_Hint = 3
+    ID_Medium,
+    ID_Hard,
+    ID_Hint,
+    ID_Solve,
+    ID_Submit
 };
 
 wxIMPLEMENT_APP(SudokuApp);
@@ -56,12 +56,14 @@ bool SudokuApp::OnInit() {
 }
 
 SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", wxDefaultPosition, wxSize(1920, 1080)) {
-//, wxDEFAULT_FRAME_STYLE & ~(wxMAXIMIZE_BOX | wxRESIZE_BORDER)) {
-    //gridline setup
+    // Show full screen
     ShowFullScreen(true);
+
+    // Setup the drawing panel
     drawingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(1920, 1080)); 
-    drawingPanel->Bind(wxEVT_PAINT, &SudokuFrame::OnDrawPanel, this);
-    //menu setup
+//    drawingPanel->Bind(wxEVT_PAINT, &SudokuFrame::OnDrawPanel, this);
+
+    // Setup menu
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(wxID_EXIT);
     wxMenu* menuHelp = new wxMenu;
@@ -73,34 +75,43 @@ SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", 
     CreateStatusBar();
     SetStatusText("Welcome to Sudoku Game!");
 
+    // Setup buttons and sizer
     sizer = new wxBoxSizer(wxVERTICAL);
-
     btnEasy = new wxButton(this, ID_Easy, "Easy");
     btnMedium = new wxButton(this, ID_Medium, "Medium");
     btnHard = new wxButton(this, ID_Hard, "Hard");
     btnHint = new wxButton(this, ID_Hint, "Hint");
+    btnSubmit = new wxButton(this, ID_Submit, "Submit");
+    btnSolve = new wxButton(this, ID_Solve, "Solve");
 
+    btnSubmit->Hide();
     btnHint->Hide();
+    btnSolve->Hide();
 
+    sizer->Add(btnSubmit, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnEasy, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnMedium, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnHard, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnHint, 0, wxALIGN_CENTER_HORIZONTAL, 10);
+    sizer->Add(btnSolve, 0, wxALIGN_CENTER_HORIZONTAL, 10);
 
     this->SetSizer(sizer);
     this->Layout();  // Apply the layout changes
 
-    //event bindings
+    // Event bindings
     Bind(wxEVT_BUTTON, &SudokuFrame::OnEasy, this, ID_Easy);
     Bind(wxEVT_BUTTON, &SudokuFrame::OnMedium, this, ID_Medium);
     Bind(wxEVT_BUTTON, &SudokuFrame::OnHard, this, ID_Hard);
     Bind(wxEVT_BUTTON, &SudokuFrame::OnHint, this, ID_Hint);
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnSolve, this, ID_Solve);
     Bind(wxEVT_MENU, &SudokuFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &SudokuFrame::OnExit, this, wxID_EXIT);
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnSubmit, this, ID_Submit);
 
-    // grid sizer for the Sudoku board
+    // Initialize the Sudoku grid panel
+    sudokuGridPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(360, 360));
     sudokuGridSizer = new wxGridSizer(9, 9, 0, 0);
-    this->SetSizer(sudokuGridSizer);
+    sudokuGridPanel->SetSizer(sudokuGridSizer);
 }
 
 void SudokuFrame::OnExit(wxCommandEvent& event) {
@@ -110,78 +121,92 @@ void SudokuFrame::OnExit(wxCommandEvent& event) {
 void SudokuFrame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("This is a wxWidgets Sudoku Game", "About Sudoku Game", wxOK | wxICON_INFORMATION);
 }
-//event presses
-void SudokuFrame::OnEasy(wxCommandEvent& event) {
-    game.board.generateBoard(0); //generates board using the generateBoard function from the board class
-    UpdateBoardDisplay(); //updates board display
 
-    //hides buttons when they are pressed
+void SudokuFrame::OnEasy(wxCommandEvent& event) {
+    game.board.generateBoard(0); // 0 = easy
+    UpdateBoardDisplay();
     btnHint->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
+    btnSubmit->Show();
+    btnSolve->Show();
     this->Layout();
 }
-//
-void SudokuFrame::OnMedium(wxCommandEvent& event) {
-    game.board.generateBoard(1); //0 = easy, 1 = medium, 2 = hard
-    UpdateBoardDisplay();
 
+void SudokuFrame::OnMedium(wxCommandEvent& event) {
+    game.board.generateBoard(1); // 1 = medium
+    UpdateBoardDisplay();
     btnHint->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
+    btnSubmit->Show();
+    btnSolve->Show();
     this->Layout();
 }
 
 void SudokuFrame::OnHard(wxCommandEvent& event) {
-    game.board.generateBoard(2); 
+    game.board.generateBoard(2); // 2 = hard
     UpdateBoardDisplay();
-
     btnHint->Show();
+    btnSubmit->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
+    btnSolve->Show();
     this->Layout();
 }
 
 void SudokuFrame::OnHint(wxCommandEvent& event) {
-    //place holder for now
-    btnHint->Show();
+    // Hint button logic
+    game.getHint(); // Get a hint
+    UpdateBoardDisplay();
 }
 
+void SudokuFrame::OnSolve(wxCommandEvent& event) {
+    game.solve(); 
+    UpdateBoardDisplay();
+}
+
+void SudokuFrame::OnSubmit(wxCommandEvent& event) {
+    game.submit(); // Call submit function from the sudoku class
+
+    wxString message;
+    if (game.win) {  
+        message = "Congratulations! Correct!!";
+    } else {
+        message = "Incorrect! Use a hint if you get stuck. ";
+    }
+
+    wxMessageBox(message, "Sudoku Submission Result", wxOK | wxICON_INFORMATION, this);
+}
+
+/*
 void SudokuFrame::OnDrawPanel(wxPaintEvent& evt) {
     wxPaintDC dc(drawingPanel);
-    dc.SetPen(wxPen(*wxBLACK, 3)); 
-
+    dc.SetPen(wxPen(*wxBLACK, 3)); // Black pen with thickness 3
     int tileHeight = 38; // Height of one tile
-    int lineThickness = 3; 
+    int lineThickness = 3; // Thickness of the lines
     int sectionHeight = (3 * tileHeight) + (2 * lineThickness); // Height of one section
-
-    // Draw the 3x3 grid lines
     int width, height;
     drawingPanel->GetSize(&width, &height);
-
     for (int i = 1; i <= 2; ++i) {
-        // Draw vertical line
         dc.DrawLine(width / 3 * i, 0, width / 3 * i, height);
-        // Draw horizontal line
         dc.DrawLine(0, sectionHeight * i, width, sectionHeight * i);
     }
-}
+}*/
 
 void SudokuFrame::UpdateBoardDisplay() {
-    sudokuGridSizer->Clear(true);  // Clear the existing grid
-
+    sudokuGridSizer->Clear(true);  //Clear the existing grid
     for (int row = 0; row < 9; row++) {
         for (int col = 0; col < 9; col++) {
             Tile tile = game.board.getTile(row, col);
             wxString value = tile.value != 0 ? wxString::Format(wxT("%d"), tile.value) : "";
-            wxTextCtrl* cell = new wxTextCtrl(this, wxID_ANY, value, wxDefaultPosition, wxSize(40, 40), wxTE_CENTRE);
+            wxTextCtrl* cell = new wxTextCtrl(sudokuGridPanel, wxID_ANY, value, wxDefaultPosition, wxSize(40, 40), wxTE_CENTRE);
             sudokuGridSizer->Add(cell, 0, wxALL, 1);
         }
     }
-
-    this->Layout();  // Update the layout
+    sudokuGridPanel->Layout();  //Update the layout of the Sudoku grid panel
 }
 

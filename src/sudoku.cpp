@@ -1,4 +1,5 @@
 #include "../include/sudoku.h"
+#include <sstream>
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
 
@@ -24,51 +25,35 @@ void Game::quit()
     screenRefresh();
     return;
 }
-void Game::getHint()
-{
-    Tile hint;
+
+void Game::getHint() {
     NinebyNine solution = board.getSolution();
-    for (int i = 0; i < __ROWS; i++)
-    {
-        for (int j = 0; j < __COLUMNS; j++)
-        {
+    
+    for (int i = 0; i < __ROWS; i++) {
+        for (int j = 0; j < __COLUMNS; j++) {
             Tile current = board.getTile(i, j);
-            if (!current.value)
-            {
-                // found empty tile
+            if (!current.value || current.value != solution.board[i][j]) {
+                // Found an empty or incorrect tile
+                Tile hint;
                 hint.row = i;
                 hint.column = j;
-                hint.value = solution.board[i][j];
-                printf("\033[1;32mHINT: Tile<%d, %d> = %d\033[0m\n", hint.row + 1, hint.column + 1, hint.value);
-                return;
-            }
-        }
-    }
-    // find an incorrect tile:
-    for (int i = 0; i < __ROWS; i++)
-    {
-        for (int j = 0; j < __COLUMNS; j++)
-        {
-            Tile current = board.getTile(i, j);
-            if (current.value != solution.board[i][j])
-            {
-                // print
-                printf("\033[1;32mHINT (Tile correction): Tile<%d, %d> should be: %d\033[0m\n", current.row + 1, current.column + 1, solution.board[i][j]);
-                return;
-            }
-        }
-    }
+                hint.value = solution.board[i][j];  // Correct value from the solution
 
-    return;
+                board.setTile(hint);  // Update the board with the hint
+                return; // Exit after providing the hint
+            }
+        }
+    }
 }
+
 void Game::solve()
 {
     screenRefresh();
 
-    printf("SOLVING...\nAre you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
-    int choice = getInput();
-    if (choice == 0)
-    { // solve board
+    //printf("SOLVING...\nAre you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
+   // int choice = getInput();
+   // if (choice == 0)
+   // { // solve board
         gameOver = true;
         NinebyNine solution = board.getSolution();
         for (int i = 0; i < __ROWS; i++)
@@ -82,7 +67,7 @@ void Game::solve()
                 board.setTile(current);
             }
         }
-    }
+   // }
     // else:
     screenRefresh();
     return;

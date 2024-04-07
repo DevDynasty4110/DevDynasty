@@ -60,7 +60,9 @@ public:
     void enterSquare();
     void clearSquare();
     void submit();
-    Board board;
+    std::string aHint;
+    Board board; //added to public
+    bool win = false;
     //-------------
     #ifdef CONFLICT_COLORING
     void refreshConflicts();
@@ -106,7 +108,7 @@ private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
     bool gameOver;
-    bool win;
+    //bool win;
     double scoreScalar;
     int nTiles;
 };
