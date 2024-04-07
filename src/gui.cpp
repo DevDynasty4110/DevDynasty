@@ -1,7 +1,9 @@
 #include <wx/wx.h>
 #include <wx/grid.h>
+#include <X11/Xlib.h>
 #include "../include/sudoku.h"  
 #include "../include/board.h"
+
 
 class SudokuApp : public wxApp {
 public:
@@ -24,17 +26,25 @@ private:
     void OnEasy(wxCommandEvent& event);
     void OnMedium(wxCommandEvent& event);
     void OnHard(wxCommandEvent& event);
+    void OnHint(wxCommandEvent& event);
     void UpdateBoardDisplay();  // method to ppdate the GUI 
     wxBoxSizer* sizer = nullptr;    // Sizer for buttons
     wxButton* btnEasy = nullptr;    // Button for Easy
     wxButton* btnMedium = nullptr;  // Button for Medium
     wxButton* btnHard = nullptr;    // Button for Hard
+    wxButton* btnHint = nullptr;
+
+    //Display* disp = XOpenDisplay(NULL);
+    //Screen*  scrn = DefaultScreenOfDisplay(disp);
+    //int height = scrn->height;
+    //int width  = scrn->width;
 };
 
 enum {
     ID_Easy = 0,
     ID_Medium = 1,
-    ID_Hard = 2
+    ID_Hard = 2,
+    ID_Hint = 3
 };
 
 wxIMPLEMENT_APP(SudokuApp);
@@ -45,9 +55,11 @@ bool SudokuApp::OnInit() {
     return true;
 }
 
-SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", wxDefaultPosition, wxSize(450, 450), wxDEFAULT_FRAME_STYLE & ~(wxMAXIMIZE_BOX | wxRESIZE_BORDER)) {
+SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", wxDefaultPosition, wxSize(1920, 1080)) {
+//, wxDEFAULT_FRAME_STYLE & ~(wxMAXIMIZE_BOX | wxRESIZE_BORDER)) {
     //gridline setup
-    drawingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(450, 450));
+    ShowFullScreen(true);
+    drawingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(1920, 1080)); 
     drawingPanel->Bind(wxEVT_PAINT, &SudokuFrame::OnDrawPanel, this);
     //menu setup
     wxMenu* menuFile = new wxMenu;
@@ -66,10 +78,14 @@ SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", 
     btnEasy = new wxButton(this, ID_Easy, "Easy");
     btnMedium = new wxButton(this, ID_Medium, "Medium");
     btnHard = new wxButton(this, ID_Hard, "Hard");
+    btnHint = new wxButton(this, ID_Hint, "Hint");
+
+    btnHint->Hide();
 
     sizer->Add(btnEasy, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnMedium, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     sizer->Add(btnHard, 0, wxALIGN_CENTER_HORIZONTAL, 10);
+    sizer->Add(btnHint, 0, wxALIGN_CENTER_HORIZONTAL, 10);
 
     this->SetSizer(sizer);
     this->Layout();  // Apply the layout changes
@@ -78,6 +94,7 @@ SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", 
     Bind(wxEVT_BUTTON, &SudokuFrame::OnEasy, this, ID_Easy);
     Bind(wxEVT_BUTTON, &SudokuFrame::OnMedium, this, ID_Medium);
     Bind(wxEVT_BUTTON, &SudokuFrame::OnHard, this, ID_Hard);
+    Bind(wxEVT_BUTTON, &SudokuFrame::OnHint, this, ID_Hint);
     Bind(wxEVT_MENU, &SudokuFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &SudokuFrame::OnExit, this, wxID_EXIT);
 
@@ -99,6 +116,7 @@ void SudokuFrame::OnEasy(wxCommandEvent& event) {
     UpdateBoardDisplay(); //updates board display
 
     //hides buttons when they are pressed
+    btnHint->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
@@ -109,6 +127,7 @@ void SudokuFrame::OnMedium(wxCommandEvent& event) {
     game.board.generateBoard(1); //0 = easy, 1 = medium, 2 = hard
     UpdateBoardDisplay();
 
+    btnHint->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
@@ -119,10 +138,16 @@ void SudokuFrame::OnHard(wxCommandEvent& event) {
     game.board.generateBoard(2); 
     UpdateBoardDisplay();
 
+    btnHint->Show();
     btnEasy->Hide();
     btnMedium->Hide();
     btnHard->Hide();
     this->Layout();
+}
+
+void SudokuFrame::OnHint(wxCommandEvent& event) {
+    //place holder for now
+    btnHint->Show();
 }
 
 void SudokuFrame::OnDrawPanel(wxPaintEvent& evt) {
