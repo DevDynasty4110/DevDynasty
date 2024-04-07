@@ -1,3 +1,3 @@
-*Timer
-*Scoring based on timer values && difficulty selection
+*Timer (DONE)
+*Scoring based on timer values && difficulty selection (DONE)
 *Fix Board Generation
