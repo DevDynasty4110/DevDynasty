@@ -1,16 +1,15 @@
 # Requirements
  
 1. Sudoku game shall have GUI:
-	1. Game Board shall have a 3x3x3x3 board.
+	1. Game Board shall have a 9x9 board.
         -**Eval: will be evaluated by visual inspection**
-    2. Score display.
-        -**Eval: will check to see if score updates properly with input**
+    2. Shall display user score at end of the game.
+        -**Eval: will check to see if score matches what we calulated at the end of the game**
     3. Timer that keeps track of game.
-        -**Eval: will check to see if timer starts correctly,**
-            **continuously runs, and stops when the game stops**
-2. Shall have clickable number boxes that allow user to type input.
+        -**Eval: will check to see if timer matches what we timed by hand for multiple games**
+2. Shall have interactive tiles that allow user to type input directly.
     -**Eval: will test by clicking and entering values into boxes**
-3. Shall randomize starting board at beginning of game.
+3. Board shall randomize at beginning of each game.
     -**Eval: will test by running several cases to make**
         **sure that it is random and evenly distributed**
 4. Shall have easy, medium, and hard difficulty settings.
@@ -26,7 +25,7 @@
 5. Shall allow hints for each game
     1. Hint consists of one tile being filled for the user.
         -**Eval: shall test to make sure that the hint is valid and wasn't already filled in yet**
-6. Shall have a submit button which verifies if the given solution is correct.
+6. Shall have a submit button which verifies if the user's proposed matches the randomly generated one.
     1. Button shall only be clicked when all cells are filled out.
     -**Eval: test to make sure nothing happens when button is clicked pre-maturely**
     2. If board is correct:

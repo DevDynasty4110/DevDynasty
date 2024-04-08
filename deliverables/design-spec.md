@@ -1,12 +1,12 @@
 # Sudoku Design Specification
 
-1. Utilize the C++ wxWidgets library:
-    1. The sudoko board will be a 3x3x3x3 board. This board will be partially filled at the start of the game depending on the selected difficulty. The user will be able to fill in blank entries of the boards by clicking on the selected tile and entering a number 1-9 by keyboard. 
-    2. The score display will be blank until the comlpeted board is submitted. The score will then be calculated and the score display interface will be updated. 
-    3. The timer interface will update continuosly as the game progresses. Displaying to the player the amount of time they are taking to solve the suduoko puzzle.
-2. The cells of the sudoku board will be divided up by boxes. These boxes will allow users to interact with them in two ways: clicking the box and typing a number into the box.
+1. Utilize GUI library with our language of choice:
+    1. The sudoko board will be a 9x9 board. This board will be partially filled at the start of the game depending on the selected difficulty. The user will be able to fill in blank entries of the boards by clicking on the selected tile and entering a number 1-9 by keyboard. 
+    2. There will be no score display until the comlpeted board is submitted. The score will then be calculated and the score display interface will be updated. 
+    3. The timer interface will display at the end of the game alerting the user how long it took them to solve the sudoku puzzle.
+2. The cells of the sudoku board will be divided up by boxes. These boxes will allow for users to interact with them by clicking the box, and then typing a number into the box
 3. The tiles that are chosen to be revealed at the start will be randomized as well as the actual numbers that will be in those tiles at the start of each game. A fully complete board will be constructed behind the scenes to ensure that each starting board is valid. The only component of the starting board that won't be random is every row, column, and square will have at least one entry.
-4. At start of each game the user wil have the opportunity to choose between easy, medium, and hard using GUI for each option. Once the game is done generating the board for specified game mode it will iterate through each column, row, and square to verify that each component has at least one entry.
+4. At the beginning of each game the user will have the opportunity to choose between easy, medium, and hard using the GUI for each option. Once the game is done generating the board for specified game mode it will iterate through each column, row, and square to verify that each component has at least one entry
 
     **<ins>Mock up of the difficulty selection GUI:<ins>**
 
@@ -18,9 +18,9 @@
         1. Counter increments after each square is revealed, revelation process stops once counter hits 25.
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
-5. Hint counter keeps track of how many hints the user leverages.
+5. Hints will be given in order from left to right on the at the topmost row of the sudoku board.
     1. Hints will be given in order from left to right on the at the topmost row of the sudoku board.. 
-6. Green submit button will reside at the bottom of the window.
+6. Submit button will be next to the board along with the other buttons. If board is incomplete, game will notify user the entry is incorrect, and they will have to try again.
     1. Program will check entire board to see if it has an empty cell and if it does button won't be able to be clicked.
     2. All entries are filled program checked for valid board:
         1. Window with time to complete, difficulty, and total score will be displayed. 
