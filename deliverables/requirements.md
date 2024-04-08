@@ -41,22 +41,17 @@
             -**Eval: Test to make sure that the game gives the dialogue box**
                 --**Eval: Test to make sure that the buttons execute the proper function**
 7. The game shall keep a score.
-    1. A correct game board after 1 attempt will reward 1000 points.
-        -**Eval: test using correct game board to verify 1000 points are awarded on the first try**
-    2. Difficulty scoring:
+    1. Difficulty scoring:
         -**Eval: for each: set the difficulty and then check the score afterwards**
         1. Easy mode shall be 0.5x the total score. 
         2. Medium shall be 1x the total score.
         3. Hard shall be 1.5x the toal score.
-    3. Timer shall have score checkpoints:
+    2. Timer shall have score checkpoints:
         -**Eval: periodic testing to make sure that score checkpoints are synced**
-        1. Any board solved in under 5 minutes shall grant 1000 points.
-            -**Eval: test at 5 minutes to see if score is 1000X(Difficulty scalar)**
-        2. After 5 minutes the user's score shall be set on an exponential decay rate.
+        1. Awards a time bonus based on the following function.
             -**Eval: test using a function that computes the score as f(t), f(t) being a function of time**
-    4. The user shall lose 300 points for each hint used.
+    3. The user shall lose 300 points for each hint used.
         -**Eval: test to see if 300 points are deducted for every hint used**
-    5. Points shall be rewarded/deducted at the submission of each board.
-        2. For each incorrect tile the user shall lose 20 points.
-    6. Final score
-        1. the final score will be calculated at the end of the game
+    4. Points shall be rewarded/deducted at the submission of each board.
+    5. Final score
+        1. The final score will be calculated at the end of the game

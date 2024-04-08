@@ -27,15 +27,13 @@
     3. Some entries are empty or board is not valid for sudoku:
         1. GUI will highlight in red all of the incorrect/empty cells.
         2. Game will continue and the incorrect/empty cells will be cleared ready for user input.
-7. Backend
-    1. When a game attempt is submitted, the game will determine if it is the first attempt of submission. if it is the first attempt and it is correct, it will award 1000 points to the user
-    2. To implement the difficulty, the user will be prompted with 3 options. Easy, Medium, or Hard. This will be collected using a graphical interface handled by the front end team. However, the GUI will send the choice over to the game logic.
+7. The game will calculate score based on various factors such as: number of hints used, number of incorrect submissions, time to solve, and difficulty selected.
+    1. To implement the difficulty, the user will be prompted with 3 options. Easy, Medium, or Hard. This will be collected using a graphical interface handled by the front end team. However, the GUI will send the choice over to the game logic.
         1. Easy: the easy game mode will scale the total score by 0.5
         2. Medium: The medium game mode will scale the total score by 1.0 (no change)
         3. Hard: the hard game mode will scale the total score by 1.5
-    3. A timer will continuously run contribute to the score
-        1. if a board is solved in under 5 minutes, the game will add 1000 points to the total score
-        2. Once 5 minutes has passed, this additional score will be determined by an exponential decay function
+    2. A timer will continuously run that contributes to the score
+        1. The score will be determined by an exponential decay function
             $F(t) = 1000e^{-α(t + T)}$  
             `α`: the decay rate  
             `t`: the time in seconds (Variable)  
@@ -47,12 +45,11 @@
             this produces:  
             $F(t) = 1000e^{-\frac{1}{60}(t -300)}$
 
-    4. The base score will have 300 points subracted for every hint that is used
-    5. points subtracted for mistakes at submission
-        1. when the board is submitted, every duplicate found will subtract 20 points from the base score
-    6. final score
-        1. the final score will be calculated by taking the sum of the base score and the time bonus.
-        the final score will look like this: 
+    3. The base score will have 300 points subracted for every hint that is used
+    4. Each incorrect submission divides user score by 1.5.
+    5. Final score
+        1. The final score will be calculated by taking the sum of the base score and the time bonus.
+        The final score will look like this: 
         
         $Score = score_i + F(t)$  
         where $t \geq 300$
