@@ -18,8 +18,8 @@
         1. Counter increments after each square is revealed, revelation process stops once counter hits 25.
     3. Hard:
         1. Counter increments after each square is revealed, revelation process stops once counter hits 17.
-5. Hint counter will decrement after user uses a hint. Once the user is out of hints, the button will not register a click.
-    1. Random number generator will choose what tile gets filled on the board. 
+5. Hint counter keeps track of how many hints the user leverages.
+    1. Hints will be given in order from left to right on the at the topmost row of the sudoku board.. 
 6. Green submit button will reside at the bottom of the window.
     1. Program will check entire board to see if it has an empty cell and if it does button won't be able to be clicked.
     2. All entries are filled program checked for valid board:

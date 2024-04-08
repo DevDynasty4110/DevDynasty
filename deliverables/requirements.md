@@ -23,7 +23,7 @@
     3. Hard:
         1. 17 tiles of the board will be complete.
             -**Eval: will test to make sure that only 17 tiles are filled in**
-5. Shall allow three hints per game.
+5. Shall allow hints for each game
     1. Hint consists of one tile being filled for the user.
         -**Eval: shall test to make sure that the hint is valid and wasn't already filled in yet**
 6. Shall have a submit button which verifies if the given solution is correct.
