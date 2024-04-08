@@ -117,6 +117,8 @@ private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
     bool gameOver;
+    int nHintsUsed=0;
+    int nAttemptedSubmissions=0;
     //bool win;
     double scoreScalar;
     int nTiles;

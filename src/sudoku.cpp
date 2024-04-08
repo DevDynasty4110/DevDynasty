@@ -73,7 +73,7 @@ char *formatTime(int t)
 
 void Game::getHint() {
     NinebyNine solution = board.getSolution();
-    
+    nHintsUsed++;
     for (int i = 0; i < __ROWS; i++) {
         for (int j = 0; j < __COLUMNS; j++) {
             Tile current = board.getTile(i, j);
@@ -205,6 +205,7 @@ void Game::submit()
             Tile current = board.getTile(i, j);
             if (current.value != solution.board[i][j])
             { // incorrect!!
+                nAttemptedSubmissions++;
                 printf("Incorrect!\nUse a hint if you get stuck!\n");
                 return;
             }
@@ -216,7 +217,26 @@ void Game::submit()
     win = true;
         if (win) {
         time_t totalTime = time(nullptr) - startTime;
-        finalScore = calculateScore(totalTime);
+        int timeBonus = calculateScore(totalTime);
+
+        if(totalTime < 300){
+            timeBonus = 1000;
+        }
+
+        int subTotal = (1000 - (nHintsUsed * 300)) + timeBonus;
+        int submitPenalty = subTotal;
+
+        for(int i = 0; i < nAttemptedSubmissions; i++){
+            submitPenalty /= 1.5;
+        }
+
+        submitPenalty = subTotal - submitPenalty;
+        int hintDeduct = 300 * nHintsUsed;
+        int finalSubTotal = subTotal - submitPenalty - hintDeduct;
+        if(finalSubTotal < 0){
+            finalSubTotal = 0;
+        }
+        finalScore = finalSubTotal * scalarArr[difficulty];
         return;
     }
     return;

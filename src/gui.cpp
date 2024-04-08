@@ -203,15 +203,34 @@ void SudokuFrame::OnDrawPanel(wxPaintEvent& evt) {
 }*/
 
 void SudokuFrame::UpdateBoardDisplay() {
-    sudokuGridSizer->Clear(true);  //Clear the existing grid
+    sudokuGridSizer->Clear(true);  // Clear the existing grid
+
     for (int row = 0; row < 9; row++) {
         for (int col = 0; col < 9; col++) {
             Tile tile = game.board.getTile(row, col);
             wxString value = tile.value != 0 ? wxString::Format(wxT("%d"), tile.value) : "";
             wxTextCtrl* cell = new wxTextCtrl(sudokuGridPanel, wxID_ANY, value, wxDefaultPosition, wxSize(40, 40), wxTE_CENTRE);
+
+            // Calculate section index
+            int sectionIndex = (row / 3) * 3 + (col / 3);
+
+            // Check if the section should be colored grey (0, 2, 4, 6, 8)
+            if (sectionIndex == 0 || sectionIndex == 2 || sectionIndex == 4 || sectionIndex == 6 || sectionIndex == 8) {
+                cell->SetBackgroundColour(wxColour(192, 192, 192)); 
+            }
+
+            // Check if the tile is locked
+            int tileId = row * 9 + col;
+            if (game.board.isLocked(tileId)) {
+                cell->SetEditable(false);
+            }
+
             sudokuGridSizer->Add(cell, 0, wxALL, 1);
         }
     }
-    sudokuGridPanel->Layout();  //Update the layout of the Sudoku grid panel
+
+    sudokuGridPanel->Layout();  // Update the layout
 }
+
+
 
