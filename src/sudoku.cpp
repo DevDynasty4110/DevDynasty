@@ -26,6 +26,51 @@ void Game::quit()
     return;
 }
 
+double pow(double x, int n) // return: x**n
+{
+    double result = 1.0;
+    if (n == 0)
+        return result;
+    for (int i = 0; i < n; i++)
+    {
+        result *= x;
+    }
+    return result;
+}
+int fact(int x)
+{ // recursive factorial function
+    if (x == 0 || x == 1)
+    {
+        return 1; // base case
+    }
+    return (x * fact(x - 1));
+}
+int Game::calculateScore(time_t totalTime)
+{
+    // exponential decay function
+    int n = 20; // number of iterations
+    double result = COEFFICIENT;
+    double x = (ALPHA) * (totalTime - T);
+    double exponential = 0;
+    for (int i = 0; i < n; i++)
+    { // Taylor series for e^^x
+        double numerator = pow(x, i);
+        double denominator = fact(i);
+        exponential += (numerator / denominator); // sum
+    }
+    result *= (1.0 / exponential);
+    return static_cast<int>(result);
+}
+
+char *formatTime(int t)
+{
+    int minute = t / 60;
+    int second = t % 60;
+    char *result = new char[40];
+    std::sprintf(result, "%dm, %ds", minute, second);
+    return result;
+}
+
 void Game::getHint() {
     NinebyNine solution = board.getSolution();
     
@@ -169,6 +214,11 @@ void Game::submit()
     printf("\033[1;32mCorrect!!\033[0m\n");
     gameOver = true;
     win = true;
+        if (win) {
+        time_t totalTime = time(nullptr) - startTime;
+        finalScore = calculateScore(totalTime);
+        return;
+    }
     return;
 }
 //---------------------
@@ -236,6 +286,7 @@ void printDifficulty()
 void Game::startGame()
 {
     // TODO
+    startTime = time(nullptr);
 }
 // main() cant be defined if using a GUI
 // Added an ifdef to determine which type of app it is

@@ -123,6 +123,8 @@ void SudokuFrame::OnAbout(wxCommandEvent& event) {
 }
 
 void SudokuFrame::OnEasy(wxCommandEvent& event) {
+    game.startGame();
+    game.setDifficulty(__EASY);
     game.board.generateBoard(0); // 0 = easy
     UpdateBoardDisplay();
     btnHint->Show();
@@ -135,6 +137,8 @@ void SudokuFrame::OnEasy(wxCommandEvent& event) {
 }
 
 void SudokuFrame::OnMedium(wxCommandEvent& event) {
+    game.startGame();
+    game.setDifficulty(__MEDIUM);
     game.board.generateBoard(1); // 1 = medium
     UpdateBoardDisplay();
     btnHint->Show();
@@ -147,6 +151,8 @@ void SudokuFrame::OnMedium(wxCommandEvent& event) {
 }
 
 void SudokuFrame::OnHard(wxCommandEvent& event) {
+    game.startGame();
+    game.setDifficulty(__HARD);
     game.board.generateBoard(2); // 2 = hard
     UpdateBoardDisplay();
     btnHint->Show();
@@ -170,17 +176,16 @@ void SudokuFrame::OnSolve(wxCommandEvent& event) {
 }
 
 void SudokuFrame::OnSubmit(wxCommandEvent& event) {
-    game.submit(); // Call submit function from the sudoku class
-
-    wxString message;
-    if (game.win) {  
-        message = "Congratulations! Correct!!";
+    game.submit();
+    if (game.win) {
+        wxString message;
+        message.Printf("Congratulations! Correct!!.\nYour score: %d", game.finalScore);
+        wxMessageBox(message, "Result", wxOK | wxICON_INFORMATION, this);
     } else {
-        message = "Incorrect! Use a hint if you get stuck. ";
+        wxMessageBox("Sorry, incorrect :( \n Try a hint!");
     }
-
-    wxMessageBox(message, "Sudoku Submission Result", wxOK | wxICON_INFORMATION, this);
 }
+
 
 /*
 void SudokuFrame::OnDrawPanel(wxPaintEvent& evt) {

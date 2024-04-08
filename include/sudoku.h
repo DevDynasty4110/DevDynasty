@@ -3,10 +3,16 @@
 #include <cstdio>
 #include "../include/board.h"
 #include <limits>
+#include <ctime>
 
 #define __EASY_SCALAR 0.5
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
+
+#define MIN_PER_DECAY 8.0 // how many minutes per half life
+#define ALPHA (1.0 / (MIN_PER_DECAY * 60.0))
+#define T 300.0
+#define COEFFICIENT 1000.0
 
 // print out at beginning of screen
 #define __GAME_HEADER "\033[97;44m\
@@ -60,15 +66,18 @@ public:
     void enterSquare();
     void clearSquare();
     void submit();
+    int finalScore;
     std::string aHint;
     Board board; //added to public
     bool win = false;
+    time_t startTime;
     //-------------
     #ifdef CONFLICT_COLORING
     void refreshConflicts();
     #endif
 
     void printCmds(); // print all the commands
+    int calculateScore(time_t totalTime);
 // cmdTable gives the ability to enter commands for user input
 #define __N_COMMANDS 6
     Game() : cmdTable{
