@@ -57,7 +57,7 @@ bool SudokuApp::OnInit() {
 
 SudokuFrame::SudokuFrame() : wxFrame(nullptr, wxID_ANY, "Sudoku by DevDynasty", wxDefaultPosition, wxSize(1920, 1080)) {
     // Show full screen
-    ShowFullScreen(true);
+   // ShowFullScreen(true);
 
     // Setup the drawing panel
     drawingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(1920, 1080)); 
