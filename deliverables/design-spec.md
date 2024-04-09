@@ -35,15 +35,15 @@
     2. A timer will continuously run that contributes to the score
         1. The score will be determined by an exponential decay function
             $F(t) = 1000e^{-α(t + T)}$  
-            `α`: the decay rate  
+            `α`: the decay rate (Half-Life) 
             `t`: the time in seconds (Variable)  
             `T`: the time offset  
             The best found values are as follows:  
-            $α = \frac{1}{60}$  
+            $α = \frac{1}{480}$  
             `t` = t (variable)  
             `T` = -300  
             this produces:  
-            $F(t) = 1000e^{-\frac{1}{60}(t -300)}$
+            $F(t) = 1000e^{-\frac{1}{480}(t -300)}$
 
     3. The base score will have 300 points subracted for every hint that is used
     4. Each incorrect submission divides user score by 1.5.
