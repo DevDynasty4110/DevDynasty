@@ -218,7 +218,6 @@ void Game::submit()
         if (win) {
         time_t totalTime = time(nullptr) - startTime;
         int timeBonus = calculateScore(totalTime);
-        delete[] timeResult;
         timeResult = formatTime(static_cast<int>(totalTime));
         if(totalTime < 300){
             timeBonus = 1000;

@@ -181,8 +181,7 @@ void SudokuFrame::OnSubmit(wxCommandEvent& event) {
 
     if (game.win) {
         wxString message;
-        message.Printf("Congratulations! Correct!!.\nYour score: %d", wxFormatTime, game.finalScore);
-        wxMessageBox(message, "Result", wxOK | wxICON_INFORMATION, this);
+        message.Printf("Congratulations! Correct!!\nTime taken: %s\nYour score: %d", wxFormatTime, game.finalScore);        wxMessageBox(message, "Result", wxOK | wxICON_INFORMATION, this);
         delete[] game.timeResult;
         game.timeResult = nullptr;
     } else {
