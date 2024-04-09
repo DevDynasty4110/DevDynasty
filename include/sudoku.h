@@ -71,6 +71,7 @@ public:
     Board board; //added to public
     bool win = false;
     time_t startTime;
+    char *timeResult;
     //-------------
     #ifdef CONFLICT_COLORING
     void refreshConflicts();

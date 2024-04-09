@@ -177,10 +177,14 @@ void SudokuFrame::OnSolve(wxCommandEvent& event) {
 
 void SudokuFrame::OnSubmit(wxCommandEvent& event) {
     game.submit();
+    wxString wxFormatTime = wxString::FromUTF8(game.timeResult);
+
     if (game.win) {
         wxString message;
-        message.Printf("Congratulations! Correct!!.\nYour score: %d", game.finalScore);
+        message.Printf("Congratulations! Correct!!.\nYour score: %d", wxFormatTime, game.finalScore);
         wxMessageBox(message, "Result", wxOK | wxICON_INFORMATION, this);
+        delete[] game.timeResult;
+        game.timeResult = nullptr;
     } else {
         wxMessageBox("Sorry, incorrect :( \n Try a hint!");
     }
