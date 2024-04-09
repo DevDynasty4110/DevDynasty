@@ -49,6 +49,7 @@
     2. Timer shall have score checkpoints:
         -**Eval: periodic testing to make sure that score checkpoints are synced**
         1. Awards a time bonus based on the following function.
+            $F(t) = 1000e^{-α(t + T)}$
             -**Eval: test using a function that computes the score as f(t), f(t) being a function of time**
     3. The user shall lose 300 points for each hint used.
         -**Eval: test to see if 300 points are deducted for every hint used**
