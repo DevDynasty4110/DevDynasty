@@ -1,7 +1,7 @@
 #include "../include/sudoku.h"
+#include <sstream>
 
 double scalarArr[] = {__EASY_SCALAR, __MEDIUM_SCALAR, __HARD_SCALAR};
-std::string difficultyNameArr[] = {"Easy\t\033[1;31m", "Medium\033[1;34m", "Hard\t\033[1;32m"};
 
 void screenRefresh()
 {
@@ -25,52 +25,80 @@ void Game::quit()
     screenRefresh();
     return;
 }
-void Game::getHint()
+
+double pow(double x, int n) // return: x**n
 {
-    nHintsUsed++; // increment for later score factor
-    Tile hint;
-    NinebyNine solution = board.getSolution();
-    for (int i = 0; i < __ROWS; i++)
+    double result = 1.0;
+    if (n == 0)
+        return result;
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < __COLUMNS; j++)
-        {
+        result *= x;
+    }
+    return result;
+}
+int fact(int x)
+{ // recursive factorial function
+    if (x == 0 || x == 1)
+    {
+        return 1; // base case
+    }
+    return (x * fact(x - 1));
+}
+int Game::calculateScore(time_t totalTime)
+{
+    // exponential decay function
+    int n = 20; // number of iterations
+    double result = COEFFICIENT;
+    double x = (ALPHA) * (totalTime - T);
+    double exponential = 0;
+    for (int i = 0; i < n; i++)
+    { // Taylor series for e^^x
+        double numerator = pow(x, i);
+        double denominator = fact(i);
+        exponential += (numerator / denominator); // sum
+    }
+    result *= (1.0 / exponential);
+    return static_cast<int>(result);
+}
+
+char *formatTime(int t)
+{
+    int minute = t / 60;
+    int second = t % 60;
+    char *result = new char[40];
+    std::sprintf(result, "%dm, %ds", minute, second);
+    return result;
+}
+
+void Game::getHint() {
+    NinebyNine solution = board.getSolution();
+    nHintsUsed++;
+    for (int i = 0; i < __ROWS; i++) {
+        for (int j = 0; j < __COLUMNS; j++) {
             Tile current = board.getTile(i, j);
-            if (!current.value)
-            {
-                // found empty tile
+            if (!current.value || current.value != solution.board[i][j]) {
+                // Found an empty or incorrect tile
+                Tile hint;
                 hint.row = i;
                 hint.column = j;
-                hint.value = solution.board[i][j];
-                printf("\033[1;32mHINT: Tile<%d, %d> = %d\033[0m\n", hint.row + 1, hint.column + 1, hint.value);
-                return;
-            }
-        }
-    }
-    // find an incorrect tile:
-    for (int i = 0; i < __ROWS; i++)
-    {
-        for (int j = 0; j < __COLUMNS; j++)
-        {
-            Tile current = board.getTile(i, j);
-            if (current.value != solution.board[i][j])
-            {
-                // print
-                printf("\033[1;32mHINT (Tile correction): Tile<%d, %d> should be: %d\033[0m\n", current.row + 1, current.column + 1, solution.board[i][j]);
-                return;
-            }
-        }
-    }
+                hint.value = solution.board[i][j];  // Correct value from the solution
 
-    return;
+                board.setTile(hint);  // Update the board with the hint
+                return; // Exit after providing the hint
+            }
+        }
+    }
 }
+
 void Game::solve()
 {
     screenRefresh();
 
-    printf("SOLVING...\nAre you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
-    int choice = getInput();
-    if (choice == 0)
-    { // solve board
+    //printf("SOLVING...\nAre you sure?\n0: \033[1;32mYES\033[0m\n1: \033[1;31mNO\033[0m\n");
+   // int choice = getInput();
+   // if (choice == 0)
+   // { // solve board
         gameOver = true;
         NinebyNine solution = board.getSolution();
         for (int i = 0; i < __ROWS; i++)
@@ -84,7 +112,7 @@ void Game::solve()
                 board.setTile(current);
             }
         }
-    }
+   // }
     // else:
     screenRefresh();
     return;
@@ -176,8 +204,8 @@ void Game::submit()
         {
             Tile current = board.getTile(i, j);
             if (current.value != solution.board[i][j])
-            {                            // incorrect!!
-                nAttemptedSubmissions++; // increment for later scoring factor
+            { // incorrect!!
+                nAttemptedSubmissions++;
                 printf("Incorrect!\nUse a hint if you get stuck!\n");
                 return;
             }
@@ -187,6 +215,30 @@ void Game::submit()
     printf("\033[1;32mCorrect!!\033[0m\n");
     gameOver = true;
     win = true;
+        if (win) {
+        time_t totalTime = time(nullptr) - startTime;
+        int timeBonus = calculateScore(totalTime);
+        timeResult = formatTime(static_cast<int>(totalTime));
+        if(totalTime < 300){
+            timeBonus = 1000;
+        }
+
+        int subTotal = (1000 - (nHintsUsed * 300)) + timeBonus;
+        int submitPenalty = subTotal;
+
+        for(int i = 0; i < nAttemptedSubmissions; i++){
+            submitPenalty /= 1.5;
+        }
+
+        submitPenalty = subTotal - submitPenalty;
+        int hintDeduct = 300 * nHintsUsed;
+        int finalSubTotal = subTotal - submitPenalty - hintDeduct;
+        if(finalSubTotal < 0){
+            finalSubTotal = 0;
+        }
+        finalScore = finalSubTotal * scalarArr[difficulty];
+        return;
+    }
     return;
 }
 //---------------------
@@ -254,55 +306,8 @@ void printDifficulty()
 void Game::startGame()
 {
     // TODO
+    startTime = time(nullptr);
 }
-
-double pow(double x, int n) // return: x**n
-{
-    double result = 1.0;
-    if (n == 0)
-        return result;
-    for (int i = 0; i < n; i++)
-    {
-        result *= x;
-    }
-    return result;
-}
-
-int fact(int x)
-{ // recursive factorial function
-    if (x == 0 || x == 1)
-    {
-        return 1; // base case
-    }
-    return (x * fact(x - 1));
-}
-
-int Game::calculateScore(time_t totalTime)
-{
-    // exponential decay function
-    int n = 20; // number of iterations
-    double result = COEFFICIENT;
-    double x = (ALPHA) * (totalTime - T);
-    double exponential = 0;
-    for (int i = 0; i < n; i++)
-    { // Taylor series for e^^x
-        double numerator = pow(x, i);
-        double denominator = fact(i);
-        exponential += (numerator / denominator); // sum
-    }
-    result *= (1.0 / exponential);
-    return static_cast<int>(result);
-}
-
-char *formatTime(int t)
-{
-    int minute = t / 60;
-    int second = t % 60;
-    char *result = new char[40];
-    std::sprintf(result, "%dm, %ds", minute, second);
-    return result;
-}
-
 // main() cant be defined if using a GUI
 // Added an ifdef to determine which type of app it is
 
@@ -312,11 +317,8 @@ int Game::sudoku()
     // initialize board:
     gameOver = false;
     win = false;
-    nHintsUsed = 0;
-    nAttemptedSubmissions = 0;
 
     board.generateBoard(difficulty);
-    startTime = time(nullptr);
     while (true)
     { // this is the game loop
         if (!win)
@@ -326,50 +328,6 @@ int Game::sudoku()
         }
         if (gameOver)
         {
-            if (win)
-            {
-                time_t endTime = time(nullptr);
-                time_t totalTime = endTime - startTime;
-                // printout of score + time bonus
-                int timeBonus = calculateScore(totalTime);
-                // max time bonus possible is 1000
-                if (totalTime < 300)
-                {
-                    timeBonus = 1000;
-                }
-                int subTotal = (1000 - (nHintsUsed * 300)) + timeBonus;
-                int submitPenalty = subTotal;
-                for (int i = 0; i < nAttemptedSubmissions; i++)
-                {
-                    submitPenalty /= 1.5;
-                }
-                submitPenalty = subTotal - submitPenalty;
-                printf("Game Results:\n");
-                printf("Number of hints used: %d ", nHintsUsed);
-                int hintDeduct = 300 * nHintsUsed;
-                if (nHintsUsed)
-                {
-                    printf("\t\033[1;31m(-%d Pts)\033[0m", hintDeduct);
-                }
-                printf("\n");
-                printf("Incorrect game submissions: %d", nAttemptedSubmissions);
-                if (nAttemptedSubmissions)
-                {
-                    printf("\t\033[1;31m(-%d Pts)\033[0m", submitPenalty);
-                }
-                printf("\n");
-                char *formattedTime = formatTime(static_cast<int>(totalTime));
-                printf("Total time: %s", formattedTime);
-                delete[] formattedTime;
-                printf("\t\t\033[1;32m(+%d Pt Time bonus)\033[0m\n", timeBonus);
-                int finalSubtotal = subTotal - submitPenalty - hintDeduct;
-                if (finalSubtotal < 0)
-                    finalSubtotal = 0; // cant have a negative score!
-                printf("Subtotal: \t\t\t\033[1;33m%d Pts\033[0m\n", finalSubtotal);
-                printf("Difficulty Scalar: %s\t(X%.1f)\033[0m\n", difficultyNameArr[difficulty].c_str(), scalarArr[difficulty]);
-                int finalScore = finalSubtotal * scalarArr[difficulty];
-                printf("--------------------------------------------\nFinal score:\033[1;32m\t\t\t%d Pts\033[0m\n", finalScore);
-            }
             printf("Thanks for playing!\n");
             break;
         }
@@ -421,7 +379,7 @@ int main()
         printDifficulty();
 
         difficulty = getInput();
-        difficulty--; // because the difficulty starts at 1, make it start at 0
+        difficulty--;
         if (difficulty >= __EASY && difficulty <= __HARD)
         {
             game.setDifficulty(difficulty);

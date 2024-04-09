@@ -3,17 +3,16 @@
 #include <cstdio>
 #include "../include/board.h"
 #include <limits>
+#include <ctime>
 
 #define __EASY_SCALAR 0.5
 #define __MEDIUM_SCALAR 1.0
 #define __HARD_SCALAR 1.5
 
-// score calculator constants:
 #define MIN_PER_DECAY 8.0 // how many minutes per half life
 #define ALPHA (1.0 / (MIN_PER_DECAY * 60.0))
 #define T 300.0
 #define COEFFICIENT 1000.0
-// ------------------
 
 // print out at beginning of screen
 #define __GAME_HEADER "\033[97;44m\
@@ -31,8 +30,8 @@
 // please use comments, do not remove the line (for ease of use) -Liam
 
 //---------------
-#define TERMINAL
-// #define GUI
+//#define TERMINAL
+#define GUI
 //---------------
 
 // for easy and quick access
@@ -56,6 +55,7 @@ struct Command
 };
 int getInput(); // get integer input
 
+
 class Game
 {
 public:
@@ -66,10 +66,16 @@ public:
     void enterSquare();
     void clearSquare();
     void submit();
-//-------------
-#ifdef CONFLICT_COLORING
+    int finalScore;
+    std::string aHint;
+    Board board; //added to public
+    bool win = false;
+    time_t startTime;
+    char *timeResult;
+    //-------------
+    #ifdef CONFLICT_COLORING
     void refreshConflicts();
-#endif
+    #endif
 
     void printCmds(); // print all the commands
     int calculateScore(time_t totalTime);
@@ -112,12 +118,9 @@ private:
     Command cmdTable[__N_COMMANDS];
     int difficulty;
     bool gameOver;
-    int nHintsUsed;
-    int nAttemptedSubmissions;
-    bool win;
-    int scoreSubTotal;
-    time_t startTime;
-    Board board;
+    int nHintsUsed=0;
+    int nAttemptedSubmissions=0;
+    //bool win;
     double scoreScalar;
     int nTiles;
 };
